@@ -1,5 +1,6 @@
 # School schedule project
 ## project structure
+```
 school-schedule/
 ├── src/
 │   ├── main/
@@ -21,4 +22,5 @@ school-schedule/
 │   │       ├── db-data.sql
 │   │       ├── database.properties
 │   │       └── log4j2.xml    
-└── pom.xml        
+└── pom.xml    
+```
