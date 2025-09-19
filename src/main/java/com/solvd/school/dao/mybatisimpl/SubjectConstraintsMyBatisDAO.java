@@ -15,7 +15,7 @@ public class SubjectConstraintsMyBatisDAO implements ISubjectConstraintsDAO {
     }
 
     @Override
-    public SubjectConstraint getBySubjectId(int subjectId) {
+    public SubjectConstraint getById(int subjectId) {
         try (SqlSession s = sf.openSession()) {
             return s.selectOne(NS + ".getBySubjectId", subjectId);
         }
@@ -37,7 +37,7 @@ public class SubjectConstraintsMyBatisDAO implements ISubjectConstraintsDAO {
     }
 
     @Override
-    public void deleteBySubjectId(int subjectId) {
+    public void delete(int subjectId) {
         try (SqlSession s = sf.openSession(true)) {
             s.delete(NS + ".deleteBySubjectId", subjectId);
         }
