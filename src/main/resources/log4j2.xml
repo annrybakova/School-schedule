@@ -1,15 +1,13 @@
 This XML file does not appear to have any style information associated with it. The document tree is shown below.
 <Configuration status="WARN">
-<Appenders>
-
-<Console name="Console" target="SYSTEM_OUT">
-<PatternLayout pattern="[%d{HH:mm:ss}] [%-5level] %c{1} - %msg%n"/>
-</Console>
-</Appenders>
-<Loggers>
-
-<Root level="info">
-<AppenderRef ref="Console"/>
-</Root>
-</Loggers>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] [%-5level] %c{1} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>   
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
 </Configuration>

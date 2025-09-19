@@ -1,0 +1,35 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.school.mybatis.mappers.ClassroomsMapper">
+  <resultMap id="ClassroomResult" type="com.solvd.school.models.Classroom">
+    <id property="id" column="id"/>
+    <result property="roomNumber" column="room_number"/>
+    <result property="isSpecial" column="is_special"/>
+    <result property="capacity" column="capacity"/>
+  </resultMap>
+
+  <select id="getById" parameterType="int" resultMap="ClassroomResult">
+    SELECT id, room_number, is_special, capacity FROM classrooms WHERE id = #{id}
+  </select>
+
+  <select id="getAll" resultMap="ClassroomResult">
+    SELECT id, room_number, is_special, capacity FROM classrooms ORDER BY id
+  </select>
+
+  <insert id="insert" parameterType="com.solvd.school.models.Classroom" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    INSERT INTO classrooms (room_number, is_special, capacity)
+    VALUES (#{roomNumber}, #{isSpecial}, #{capacity})
+  </insert>
+
+  <update id="update" parameterType="com.solvd.school.models.Classroom">
+    UPDATE classrooms
+    SET room_number = #{roomNumber},
+        is_special = #{isSpecial},
+        capacity = #{capacity}
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM classrooms WHERE id = #{id}
+  </delete>
+</mapper>
+

@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.school.mybatis.mappers.ClassSubjectsMapper">
+  <resultMap id="ClassSubjectResult" type="com.solvd.school.models.ClassSubject">
+    <id property="id" column="id"/>
+    <result property="classId" column="class_id"/>
+    <result property="subjectId" column="subject_id"/>
+    <result property="lessonsPerWeek" column="lessons_per_week"/>
+    <result property="usesGroups" column="uses_groups"/>
+  </resultMap>
+
+  <select id="getById" parameterType="int" resultMap="ClassSubjectResult">
+    SELECT id, class_id, subject_id, lessons_per_week, uses_groups
+    FROM class_subjects WHERE id = #{id}
+  </select>
+
+  <select id="getByClassId" parameterType="int" resultMap="ClassSubjectResult">
+    SELECT id, class_id, subject_id, lessons_per_week, uses_groups
+    FROM class_subjects WHERE class_id = #{classId}
+  </select>
+
+  <select id="getByClassAndSubject" parameterType="map" resultMap="ClassSubjectResult">
+    SELECT id, class_id, subject_id, lessons_per_week, uses_groups
+    FROM class_subjects WHERE class_id = #{classId} AND subject_id = #{subjectId}
+  </select>
+
+  <insert id="insert" parameterType="com.solvd.school.models.ClassSubject" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    INSERT INTO class_subjects (class_id, subject_id, lessons_per_week, uses_groups)
+    VALUES (#{classId}, #{subjectId}, #{lessonsPerWeek}, #{usesGroups})
+  </insert>
+
+  <update id="update" parameterType="com.solvd.school.models.ClassSubject">
+    UPDATE class_subjects
+    SET class_id = #{classId},
+        subject_id = #{subjectId},
+        lessons_per_week = #{lessonsPerWeek},
+        uses_groups = #{usesGroups}
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM class_subjects WHERE id = #{id}
+  </delete>
+</mapper>
