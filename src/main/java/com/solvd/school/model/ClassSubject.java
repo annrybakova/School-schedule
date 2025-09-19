@@ -5,9 +5,9 @@ public class ClassSubject {
     private int classId;
     private int subjectId;
     private int lessonsPerWeek;
-    private boolean usesGroups;
-    private SchoolClass schoolClass; // For join - renamed
-    private Subject subject; // For join
+    //private boolean usesGroups;
+    private SchoolClass schoolClass;
+    private Subject subject;
 
     public ClassSubject() {}
 
@@ -16,7 +16,7 @@ public class ClassSubject {
         this.classId = classId;
         this.subjectId = subjectId;
         this.lessonsPerWeek = lessonsPerWeek;
-        this.usesGroups = usesGroups;
+        //this.usesGroups = usesGroups;
     }
 
     public int getId() { return id; }
@@ -31,8 +31,8 @@ public class ClassSubject {
     public int getLessonsPerWeek() { return lessonsPerWeek; }
     public void setLessonsPerWeek(int lessonsPerWeek) { this.lessonsPerWeek = lessonsPerWeek; }
 
-    public boolean isUsesGroups() { return usesGroups; }
-    public void setUsesGroups(boolean usesGroups) { this.usesGroups = usesGroups; }
+    //public boolean isUsesGroups() { return usesGroups; }
+    //public void setUsesGroups(boolean usesGroups) { this.usesGroups = usesGroups; }
 
     public SchoolClass getSchoolClass() { return schoolClass; }
     public void setSchoolClass(SchoolClass schoolClass) { this.schoolClass = schoolClass; }
@@ -43,6 +43,6 @@ public class ClassSubject {
     @Override
     public String toString() {
         return "ClassSubject{id=" + id + ", classId=" + classId + ", subjectId=" + subjectId +
-                ", lessonsPerWeek=" + lessonsPerWeek + ", usesGroups=" + usesGroups + "}";
+                ", lessonsPerWeek=" + lessonsPerWeek + "}";
     }
 }

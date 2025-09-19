@@ -6,7 +6,7 @@ public class Teacher {
     private String lastName;
     private int subjectId;
     private int maxLessonsPerDay;
-    private Subject subject; // For join
+    private Subject subject;
 
     public Teacher() {}
 

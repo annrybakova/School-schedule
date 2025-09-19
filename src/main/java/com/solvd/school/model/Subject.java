@@ -4,7 +4,7 @@ public class Subject {
     private int id;
     private String name;
     private boolean requiresSpecialRoom;
-    private boolean hasStudentGroups;
+    //private boolean hasStudentGroups;
 
     public Subject() {}
 
@@ -12,7 +12,7 @@ public class Subject {
         this.id = id;
         this.name = name;
         this.requiresSpecialRoom = requiresSpecialRoom;
-        this.hasStudentGroups = hasStudentGroups;
+        //this.hasStudentGroups = hasStudentGroups;
     }
 
     public int getId() { return id; }
@@ -24,12 +24,11 @@ public class Subject {
     public boolean isRequiresSpecialRoom() { return requiresSpecialRoom; }
     public void setRequiresSpecialRoom(boolean requiresSpecialRoom) { this.requiresSpecialRoom = requiresSpecialRoom; }
 
-    public boolean isHasStudentGroups() { return hasStudentGroups; }
-    public void setHasStudentGroups(boolean hasStudentGroups) { this.hasStudentGroups = hasStudentGroups; }
+    //public boolean isHasStudentGroups() { return hasStudentGroups; }
+    //public void setHasStudentGroups(boolean hasStudentGroups) { this.hasStudentGroups = hasStudentGroups; }
 
     @Override
     public String toString() {
-        return "Subject{id=" + id + ", name='" + name + "', requiresSpecialRoom=" + requiresSpecialRoom +
-                ", hasStudentGroups=" + hasStudentGroups + "}";
+        return "Subject{id=" + id + ", name='" + name + "', requiresSpecialRoom=" + requiresSpecialRoom + "}";
     }
 }

@@ -5,7 +5,7 @@ public class TeacherAvailability {
     private int teacherId;
     private int dayOfWeek;
     private boolean isAvailable;
-    private Teacher teacher; // For join
+    private Teacher teacher;
 
     public TeacherAvailability() {}
 

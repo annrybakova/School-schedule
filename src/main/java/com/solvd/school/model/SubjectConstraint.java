@@ -7,7 +7,7 @@ public class SubjectConstraint {
     private boolean notLastLesson;
     private Integer preferredLesson;
     private int maxLessonsPerDay;
-    private Subject subject; // For join
+    private Subject subject;
 
     public SubjectConstraint() {}
 

@@ -4,7 +4,7 @@ public class StudentGroup {
     private int id;
     private String name;
     private int classId;
-    private SchoolClass schoolClass; // For join - renamed
+    private SchoolClass schoolClass;
 
     public StudentGroup() {}
 

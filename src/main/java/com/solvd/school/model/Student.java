@@ -6,8 +6,8 @@ public class Student {
     private String lastName;
     private int classId;
     private int groupId;
-    private SchoolClass schoolClass; // For join
-    private StudentGroup group; // For join
+    private SchoolClass schoolClass;
+    private StudentGroup group;
 
     public Student() {}
 

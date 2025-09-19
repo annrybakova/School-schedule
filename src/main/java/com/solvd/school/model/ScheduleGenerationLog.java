@@ -1,6 +1,6 @@
 package com.solvd.school.model;
 
-import java.util.Date; // Додано імпорт
+import java.util.Date;
 
 public class ScheduleGenerationLog {
     private int id;
@@ -10,7 +10,7 @@ public class ScheduleGenerationLog {
     private float bestFitnessScore;
     private Integer algorithmParamsId;
     private String message;
-    private GeneticAlgorithmParams algorithmParams; // For join
+    private GeneticAlgorithmParams algorithmParams;
 
     public ScheduleGenerationLog() {}
 

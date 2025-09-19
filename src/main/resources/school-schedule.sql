@@ -298,4 +298,19 @@ INSERT INTO genetic_algorithm_params
 (max_generations, allowed_gaps, population_size, mutation_rate, crossover_rate, description, is_active) VALUES
 (1000, 1, 100, 0.1, 0.8, 'Default genetic algorithm parameters for schedule generation', TRUE);
 
+-- Remove the foreign key constraint
+ALTER TABLE lessons DROP FOREIGN KEY lessons_ibfk_5;
+
+-- Remove the group_id column
+ALTER TABLE lessons DROP COLUMN group_id;
+
+-- Remove foreign key from students table
+ALTER TABLE students DROP FOREIGN KEY students_ibfk_2;
+
+-- Remove students table
+DROP TABLE IF EXISTS students;
+
+-- Remove the student_groups table
+DROP TABLE IF EXISTS student_groups;
+
 SELECT 'Database school_schedule created successfully with algorithm parameters link!' AS status;

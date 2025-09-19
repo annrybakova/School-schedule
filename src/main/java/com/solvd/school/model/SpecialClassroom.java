@@ -4,8 +4,8 @@ public class SpecialClassroom {
     private int id;
     private int subjectId;
     private int classroomId;
-    private Subject subject; // For join
-    private Classroom classroom; // For join
+    private Subject subject;
+    private Classroom classroom;
 
     public SpecialClassroom() {}
 
