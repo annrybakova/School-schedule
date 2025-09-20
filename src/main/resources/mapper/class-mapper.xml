@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.school.mybatis.mappers.class-mapper">
+    <resultMap id="SchoolClassResult" type="com.solvd.school.models.SchoolClass">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="getById" parameterType="int" resultMap="SchoolClassResult">
+        SELECT id, name FROM classes WHERE id = #{id}
+    </select>
+
+    <select id="getByName" parameterType="string" resultMap="SchoolClassResult">
+        SELECT id, name FROM classes WHERE name = #{name}
+    </select>
+
+    <select id="getAll" resultMap="SchoolClassResult">
+        SELECT id, name FROM classes ORDER BY id
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.school.models.SchoolClass" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        INSERT INTO classes (name) VALUES (#{name})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.school.models.SchoolClass">
+        UPDATE classes SET name = #{name} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM classes WHERE id = #{id}
+    </delete>
+</mapper>

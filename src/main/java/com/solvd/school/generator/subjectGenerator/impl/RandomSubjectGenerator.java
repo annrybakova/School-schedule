@@ -1,6 +1,6 @@
 package com.solvd.school.generator.subjectGenerator.impl;
 
-import com.solvd.school.dao.mybatisimpl.SubjectsMyBatisDAO;
+import com.solvd.school.dao.mybatisimpl.SubjectsDAO;
 import com.solvd.school.generator.subjectGenerator.interfaces.ISubjectGenerator;
 import com.solvd.school.model.Subject;
 import com.solvd.school.util.MyBatisUtil;
@@ -13,7 +13,7 @@ public class RandomSubjectGenerator implements ISubjectGenerator {
     private static final List<Subject> subjects;
 
     static {
-        SubjectsMyBatisDAO subjectsDAO = new SubjectsMyBatisDAO(MyBatisUtil.getSqlSessionFactory());
+        SubjectsDAO subjectsDAO = new SubjectsDAO(MyBatisUtil.getSqlSessionFactory());
         subjects = subjectsDAO.getAll();
     }
 

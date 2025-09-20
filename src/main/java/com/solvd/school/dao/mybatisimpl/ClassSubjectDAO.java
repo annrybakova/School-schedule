@@ -8,12 +8,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
 
-public class ClassSubjectMyBatisDAO implements IClassesDAO {
-    private static final Logger log = LogManager.getLogger(ClassSubjectMyBatisDAO.class);
+public class ClassSubjectDAO implements IClassesDAO {
+    private static final Logger log = LogManager.getLogger(ClassSubjectDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.ClassesMapper";
     private final SqlSessionFactory sf;
 
-    public ClassSubjectMyBatisDAO(SqlSessionFactory sf) {
+    public ClassSubjectDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 

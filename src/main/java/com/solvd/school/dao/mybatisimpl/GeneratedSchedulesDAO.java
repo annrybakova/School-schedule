@@ -6,12 +6,12 @@ import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 import java.util.List;
 
-public class GeneratedSchedulesMyBatisDAO implements IGeneratedSchedulesDAO {
-    private static final Logger log = LogManager.getLogger(GeneratedSchedulesMyBatisDAO.class);
+public class GeneratedSchedulesDAO implements IGeneratedSchedulesDAO {
+    private static final Logger log = LogManager.getLogger(GeneratedSchedulesDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.GeneratedSchedulesMapper";
     private final SqlSessionFactory sf;
 
-    public GeneratedSchedulesMyBatisDAO(SqlSessionFactory sf) {
+    public GeneratedSchedulesDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 

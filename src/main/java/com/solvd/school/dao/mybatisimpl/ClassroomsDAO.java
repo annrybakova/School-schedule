@@ -7,12 +7,12 @@ import org.apache.logging.log4j.*;
 
 import java.util.List;
 
-public class ClassroomsMyBatisDAO implements IClassroomsDAO {
-    private static final Logger log = LogManager.getLogger(ClassroomsMyBatisDAO.class);
+public class ClassroomsDAO implements IClassroomsDAO {
+    private static final Logger log = LogManager.getLogger(ClassroomsDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.ClassroomsMapper";
     private final SqlSessionFactory sf;
 
-    public ClassroomsMyBatisDAO(SqlSessionFactory sf) {
+    public ClassroomsDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 

@@ -1,60 +1,53 @@
 package com.solvd.school.dao.mybatisimpl;
 
-import com.solvd.school.dao.interfaces.IStudentsDAO;
-import com.solvd.school.model.Student;
+import com.solvd.school.dao.interfaces.IStudentGroupsDAO;
+import com.solvd.school.model.StudentGroup;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 import java.util.List;
 
-public class StudentsMyBatisDAO implements IStudentsDAO {
-    private static final Logger log = LogManager.getLogger(StudentsMyBatisDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.StudentsMapper";
+public class StudentGroupsDAO implements IStudentGroupsDAO {
+    private static final Logger log = LogManager.getLogger(StudentGroupsDAO.class);
+    private static final String NS = "com.solvd.school.mybatis.mappers.StudentGroupsMapper";
     private final SqlSessionFactory sf;
 
-    public StudentsMyBatisDAO(SqlSessionFactory sf) {
+    public StudentGroupsDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 
     @Override
-    public Student getById(int id) {
+    public StudentGroup getById(int id) {
         try (SqlSession s = sf.openSession()) {
             return s.selectOne(NS + ".getById", id);
         }
     }
 
     @Override
-    public List<Student> getByClassId(int classId) {
+    public List<StudentGroup> getByClassId(int classId) {
         try (SqlSession s = sf.openSession()) {
             return s.selectList(NS + ".getByClassId", classId);
         }
     }
 
     @Override
-    public List<Student> getByGroupId(int groupId) {
-        try (SqlSession s = sf.openSession()) {
-            return s.selectList(NS + ".getByGroupId", groupId);
-        }
-    }
-
-    @Override
-    public List<Student> getAll() {
+    public List<StudentGroup> getAll() {
         try (SqlSession s = sf.openSession()) {
             return s.selectList(NS + ".getAll");
         }
     }
 
     @Override
-    public void insert(Student student) {
+    public void insert(StudentGroup group) {
         try (SqlSession s = sf.openSession(true)) {
-            s.insert(NS + ".insert", student);
-            log.info("Inserted student: {}", student);
+            s.insert(NS + ".insert", group);
+            log.info("Inserted student group: {}", group);
         }
     }
 
     @Override
-    public void update(Student student) {
+    public void update(StudentGroup group) {
         try (SqlSession s = sf.openSession(true)) {
-            s.update(NS + ".update", student);
+            s.update(NS + ".update", group);
         }
     }
 

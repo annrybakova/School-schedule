@@ -5,12 +5,12 @@ import com.solvd.school.model.GeneticAlgorithmParams;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 
-public class GeneticAlgorithmParamsMyBatisDAO implements IGeneticAlgorithmParamsDAO {
-    private static final Logger log = LogManager.getLogger(GeneticAlgorithmParamsMyBatisDAO.class);
+public class GeneticAlgorithmParamsDAO implements IGeneticAlgorithmParamsDAO {
+    private static final Logger log = LogManager.getLogger(GeneticAlgorithmParamsDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.GeneticAlgorithmParamsMapper";
     private final SqlSessionFactory sf;
 
-    public GeneticAlgorithmParamsMyBatisDAO(SqlSessionFactory sf) {
+    public GeneticAlgorithmParamsDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 

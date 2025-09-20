@@ -5,12 +5,12 @@ import com.solvd.school.model.ScheduleGenerationLog;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 
-public class ScheduleGenerationLogMyBatisDAO implements IScheduleGenerationLogDAO {
-    private static final Logger log = LogManager.getLogger(ScheduleGenerationLogMyBatisDAO.class);
+public class ScheduleGenerationLogDAO implements IScheduleGenerationLogDAO {
+    private static final Logger log = LogManager.getLogger(ScheduleGenerationLogDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.ScheduleGenerationLogMapper";
     private final SqlSessionFactory sf;
 
-    public ScheduleGenerationLogMyBatisDAO(SqlSessionFactory sf) {
+    public ScheduleGenerationLogDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 

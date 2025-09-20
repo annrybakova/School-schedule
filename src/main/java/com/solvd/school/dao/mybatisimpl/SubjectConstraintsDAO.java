@@ -5,12 +5,12 @@ import com.solvd.school.model.SubjectConstraint;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 
-public class SubjectConstraintsMyBatisDAO implements ISubjectConstraintsDAO {
-    private static final Logger log = LogManager.getLogger(SubjectConstraintsMyBatisDAO.class);
+public class SubjectConstraintsDAO implements ISubjectConstraintsDAO {
+    private static final Logger log = LogManager.getLogger(SubjectConstraintsDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.SubjectConstraintsMapper";
     private final SqlSessionFactory sf;
 
-    public SubjectConstraintsMyBatisDAO(SqlSessionFactory sf) {
+    public SubjectConstraintsDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 
