@@ -7,12 +7,12 @@ import org.apache.logging.log4j.*;
 
 import java.util.List;
 
-public class TeachersDAO implements ITeachersDAO {
-    private static final Logger log = LogManager.getLogger(TeachersDAO.class);
+public class TeacherDAO implements ITeachersDAO {
+    private static final Logger log = LogManager.getLogger(TeacherDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.TeachersMapper";
     private final SqlSessionFactory sf;
 
-    public TeachersDAO(SqlSessionFactory sf) {
+    public TeacherDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 
@@ -34,6 +34,13 @@ public class TeachersDAO implements ITeachersDAO {
     public List<Teacher> getBySubject(int subjectId) {
         try (SqlSession s = sf.openSession()) {
             return s.selectList(NS + ".getBySubject", subjectId);
+        }
+    }
+
+    @Override
+    public Integer getTeacherForSubject(int subjectId) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getTeacherForSubject", subjectId);
         }
     }
 

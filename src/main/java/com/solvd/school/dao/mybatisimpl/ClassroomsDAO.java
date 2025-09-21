@@ -31,6 +31,13 @@ public class ClassroomsDAO implements IClassroomsDAO {
     }
 
     @Override
+    public Integer getRandomClassroomId(int subjectId) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getRandomClassroomId", subjectId);
+        }
+    }
+
+    @Override
     public void insert(Classroom classroom) {
         try (SqlSession s = sf.openSession(true)) {
             s.insert(NS + ".insert", classroom);

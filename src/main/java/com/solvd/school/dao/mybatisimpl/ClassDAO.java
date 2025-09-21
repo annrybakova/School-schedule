@@ -44,4 +44,11 @@ public class ClassDAO implements IClassDAO {
             return s.selectList(NS + ".getAll");
         }
     }
+
+    @Override
+    public Integer getRandomClassId() {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getRandomClassId");
+        }
+    }
 }

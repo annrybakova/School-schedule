@@ -6,5 +6,6 @@ import java.util.List;
 public interface IClassroomsDAO extends IGenericDAO<Classroom> {
 
     List<Classroom> getAll();
+    Integer getRandomClassroomId(int subjectId);
 
 }

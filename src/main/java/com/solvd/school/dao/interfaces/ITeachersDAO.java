@@ -6,7 +6,7 @@ import java.util.List;
 public interface ITeachersDAO extends IGenericDAO<Teacher> {
 
     List<Teacher> getAll();
-
     List<Teacher> getBySubject(int subjectId);
+    Integer getTeacherForSubject(int subjectId);
 
 }

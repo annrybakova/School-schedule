@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.ClassSubjectsMapper">
-  <resultMap id="ClassSubjectResult" type="com.solvd.school.models.ClassSubject">
+  <resultMap id="ClassSubjectResult" type="com.solvd.school.models.classSubject-mapper">
     <id property="id" column="id"/>
     <result property="classId" column="class_id"/>
     <result property="subjectId" column="subject_id"/>
@@ -11,6 +11,18 @@
   <select id="getById" parameterType="int" resultMap="ClassSubjectResult">
     SELECT id, class_id, subject_id, lessons_per_week, uses_groups
     FROM class_subjects WHERE id = #{id}
+  </select>
+
+  <select id="getRandomSubjectIdForClass" parameterType="int" resultType="Integer">
+    SELECT subject_id
+    FROM class_subjects
+    WHERE class_id = #{classId}
+    ORDER BY RAND()
+    LIMIT 1
+  </select>
+
+  <select id="getAll" resultMap="ClassSubjectResult">
+    SELECT * FROM class_subjects
   </select>
 
   <select id="getByClassId" parameterType="int" resultMap="ClassSubjectResult">

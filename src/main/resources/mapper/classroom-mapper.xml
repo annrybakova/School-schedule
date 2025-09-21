@@ -11,6 +11,17 @@
     SELECT id, room_number, is_special, capacity FROM classrooms WHERE id = #{id}
   </select>
 
+  <select id="getRandomClassroomId" parameterType="int" resultType="Integer">
+    SELECT c.id
+    FROM classrooms c
+    JOIN subjects s ON s.id = #{subjectId}
+    LEFT JOIN special_classrooms sc ON sc.subject_id = s.id
+    WHERE (s.requires_special_room = FALSE AND c.is_special = FALSE)
+    OR (s.requires_special_room = TRUE AND c.id = sc.classroom_id)
+    ORDER BY RAND()
+    LIMIT 1;
+  </select>
+
   <select id="getAll" resultMap="ClassroomResult">
     SELECT id, room_number, is_special, capacity FROM classrooms ORDER BY id
   </select>

@@ -1,12 +1,12 @@
 package com.solvd.school.dao.mybatisimpl;
 
-import com.solvd.school.dao.interfaces.IClassSubjectsDAO;
+import com.solvd.school.dao.interfaces.IClassSubjectDAO;
 import com.solvd.school.model.ClassSubject;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 import java.util.*;
 
-public class ClassSubjectsDAO implements IClassSubjectsDAO {
+public class ClassSubjectsDAO implements IClassSubjectDAO {
     private static final Logger log = LogManager.getLogger(ClassSubjectsDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.ClassSubjectsMapper";
     private final SqlSessionFactory sf;
@@ -59,5 +59,10 @@ public class ClassSubjectsDAO implements IClassSubjectsDAO {
         try (SqlSession s = sf.openSession(true)) {
             s.delete(NS + ".delete", id);
         }
+    }
+
+    @Override
+    public List<ClassSubject> getAll() {
+        return List.of();
     }
 }

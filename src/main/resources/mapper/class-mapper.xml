@@ -10,6 +10,10 @@
         SELECT id, name FROM classes WHERE id = #{id}
     </select>
 
+    <select id="getRandomClassId" resultType="Integer">
+        SELECT id FROM classes ORDER BY RAND() LIMIT 1
+    </select>
+
     <select id="getByName" parameterType="string" resultMap="SchoolClassResult">
         SELECT id, name FROM classes WHERE name = #{name}
     </select>

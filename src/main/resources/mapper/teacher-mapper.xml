@@ -13,6 +13,14 @@
     FROM teachers WHERE id = #{id}
   </select>
 
+  <select id="getTeacherForSubject" parameterType="int" resultType="Integer">
+    SELECT id
+    FROM teachers
+    WHERE subject_id = #{subjectId}
+    ORDER BY RAND()
+    LIMIT 1;
+  </select>
+
   <select id="getAll" resultMap="TeacherResult">
     SELECT id, first_name, last_name, subject_id, max_lessons_per_day
     FROM teachers ORDER BY id

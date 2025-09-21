@@ -7,12 +7,12 @@ import org.apache.logging.log4j.*;
 
 import java.util.List;
 
-public class SubjectsDAO implements ISubjectsDAO {
-    private static final Logger log = LogManager.getLogger(SubjectsDAO.class);
+public class SubjectDAO implements ISubjectsDAO {
+    private static final Logger log = LogManager.getLogger(SubjectDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.SubjectsMapper";
     private final SqlSessionFactory sf;
 
-    public SubjectsDAO(SqlSessionFactory sf) {
+    public SubjectDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 

@@ -6,12 +6,12 @@ import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 import java.util.List;
 
-public class SpecialClassroomsDAO implements ISpecialClassroomsDAO {
-    private static final Logger log = LogManager.getLogger(SpecialClassroomsDAO.class);
+public class SpecialClassroomDAO implements ISpecialClassroomsDAO {
+    private static final Logger log = LogManager.getLogger(SpecialClassroomDAO.class);
     private static final String NS = "com.solvd.school.mybatis.mappers.SpecialClassroomsMapper";
     private final SqlSessionFactory sf;
 
-    public SpecialClassroomsDAO(SqlSessionFactory sf) {
+    public SpecialClassroomDAO(SqlSessionFactory sf) {
         this.sf = sf;
     }
 
