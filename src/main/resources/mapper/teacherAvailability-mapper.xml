@@ -1,31 +1,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.TeacherAvailabilityMapper">
-  <resultMap id="AvailabilityResult" type="com.solvd.school.models.TeacherAvailability">
-    <id property="id" column="id"/>
-    <result property="teacherId" column="teacher_id"/>
-    <result property="dayOfWeek" column="day_of_week"/>
-    <result property="isAvailable" column="is_available"/>
-  </resultMap>
+    <resultMap id="AvailabilityResult" type="com.solvd.school.models.TeacherAvailability">
+        <id property="id" column="id"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="dayOfWeek" column="day_of_week"/>
+        <result property="isAvailable" column="is_available"/>
+    </resultMap>
 
-  <select id="getByTeacher" parameterType="int" resultMap="AvailabilityResult">
-    SELECT id, teacher_id, day_of_week, is_available
-    FROM teacher_availability
-    WHERE teacher_id = #{teacherId}
-    ORDER BY day_of_week
-  </select>
+    <select id="getByTeacher" parameterType="int" resultMap="AvailabilityResult">
+        SELECT id, teacher_id, day_of_week, is_available
+        FROM teacher_availability
+        WHERE teacher_id = #{teacherId}
+        ORDER BY day_of_week
+    </select>
 
-  <insert id="insert" parameterType="com.solvd.school.models.TeacherAvailability" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    INSERT INTO teacher_availability (teacher_id, day_of_week, is_available)
-    VALUES (#{teacherId}, #{dayOfWeek}, #{isAvailable})
-  </insert>
+    <insert id="insert" parameterType="com.solvd.school.models.TeacherAvailability" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO teacher_availability (teacher_id, day_of_week, is_available)
+        VALUES (#{teacherId}, #{dayOfWeek}, #{isAvailable})
+    </insert>
 
-  <update id="update" parameterType="com.solvd.school.models.TeacherAvailability">
-    UPDATE teacher_availability
-    SET is_available = #{isAvailable}
-    WHERE teacher_id = #{teacherId} AND day_of_week = #{dayOfWeek}
-  </update>
+    <update id="update" parameterType="com.solvd.school.models.TeacherAvailability">
+        UPDATE teacher_availability
+        SET is_available = #{isAvailable}
+        WHERE teacher_id = #{teacherId} AND day_of_week = #{dayOfWeek}
+    </update>
 
-  <delete id="delete" parameterType="int">
-    DELETE FROM teacher_availability WHERE id = #{id}
-  </delete>
+    <delete id="delete" parameterType="int">
+        DELETE FROM teacher_availability WHERE id = #{id}
+    </delete>
 </mapper>

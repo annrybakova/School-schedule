@@ -1,10 +1,13 @@
 package com.solvd.school.service.impl;
 
 import com.solvd.school.dao.interfaces.ILessonsDAO;
+import com.solvd.school.dao.mybatisimpl.LessonDAO;
+import com.solvd.school.generator.lessonGenerator.impl.RandomLessonGenerator;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.service.interfaces.ILessonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 public class LessonServiceImpl implements ILessonService {
@@ -52,5 +55,26 @@ public class LessonServiceImpl implements ILessonService {
         List<Lesson> classLessons = lessonsDAO.getByClassAndDay(classId, dayOfWeek);
         return classLessons.stream()
                 .anyMatch(lesson -> lesson.getLessonNumber() == lessonNumber);
+    }
+
+    @Override
+    public void insertRandomLesson() {
+        Lesson randomLesson = generateRandomLesson();
+        lessonsDAO.insert(randomLesson);
+    }
+
+    private Lesson generateRandomLesson() {
+        RandomLessonGenerator lessonGenerator = new RandomLessonGenerator();
+        Lesson randomLesson = lessonGenerator.getLesson();
+
+        while (isLessonExists(randomLesson)) {
+            randomLesson = lessonGenerator.getLesson();
+        }
+
+        return randomLesson;
+    }
+
+    private boolean isLessonExists(Lesson lesson) {
+        return lessonsDAO.countAll(lesson) != 0;
     }
 }

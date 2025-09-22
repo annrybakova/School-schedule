@@ -1,51 +1,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.TeachersMapper">
-  <resultMap id="TeacherResult" type="com.solvd.school.models.Teacher">
-    <id property="id" column="id"/>
-    <result property="firstName" column="first_name"/>
-    <result property="lastName" column="last_name"/>
-    <result property="subjectId" column="subject_id"/>
-    <result property="maxLessonsPerDay" column="max_lessons_per_day"/>
-  </resultMap>
+    <resultMap id="TeacherResult" type="com.solvd.school.models.Teacher">
+        <id property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="maxLessonsPerDay" column="max_lessons_per_day"/>
+    </resultMap>
 
-  <select id="getById" parameterType="int" resultMap="TeacherResult">
-    SELECT id, first_name, last_name, subject_id, max_lessons_per_day
-    FROM teachers WHERE id = #{id}
-  </select>
+    <select id="getById" parameterType="int" resultMap="TeacherResult">
+        SELECT id, first_name, last_name, subject_id, max_lessons_per_day
+        FROM teachers WHERE id = #{id}
+    </select>
 
-  <select id="getTeacherForSubject" parameterType="int" resultType="Integer">
-    SELECT id
-    FROM teachers
-    WHERE subject_id = #{subjectId}
-    ORDER BY RAND()
-    LIMIT 1;
-  </select>
+    <select id="getTeacherForSubject" parameterType="int" resultType="Integer">
+        SELECT id
+        FROM teachers
+        WHERE subject_id = #{subjectId}
+        ORDER BY RAND()
+        LIMIT 1;
+    </select>
 
-  <select id="getAll" resultMap="TeacherResult">
-    SELECT id, first_name, last_name, subject_id, max_lessons_per_day
-    FROM teachers ORDER BY id
-  </select>
+    <select id="getAll" resultMap="TeacherResult">
+        SELECT id, first_name, last_name, subject_id, max_lessons_per_day
+        FROM teachers ORDER BY id
+    </select>
 
-  <select id="getBySubject" parameterType="int" resultMap="TeacherResult">
-    SELECT id, first_name, last_name, subject_id, max_lessons_per_day
-    FROM teachers WHERE subject_id = #{subjectId}
-  </select>
+    <select id="getBySubject" parameterType="int" resultMap="TeacherResult">
+        SELECT id, first_name, last_name, subject_id, max_lessons_per_day
+        FROM teachers WHERE subject_id = #{subjectId}
+    </select>
 
-  <insert id="insert" parameterType="com.solvd.school.models.Teacher" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    INSERT INTO teachers (first_name, last_name, subject_id, max_lessons_per_day)
-    VALUES (#{firstName}, #{lastName}, #{subjectId}, #{maxLessonsPerDay})
-  </insert>
+    <insert id="insert" parameterType="com.solvd.school.models.Teacher" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        INSERT INTO teachers (first_name, last_name, subject_id, max_lessons_per_day)
+        VALUES (#{firstName}, #{lastName}, #{subjectId}, #{maxLessonsPerDay})
+    </insert>
 
-  <update id="update" parameterType="com.solvd.school.models.Teacher">
-    UPDATE teachers
-    SET first_name = #{firstName},
+    <update id="update" parameterType="com.solvd.school.models.Teacher">
+        UPDATE teachers
+        SET first_name = #{firstName},
         last_name = #{lastName},
         subject_id = #{subjectId},
         max_lessons_per_day = #{maxLessonsPerDay}
-    WHERE id = #{id}
-  </update>
+        WHERE id = #{id}
+    </update>
 
-  <delete id="delete" parameterType="int">
-    DELETE FROM teachers WHERE id = #{id}
-  </delete>
+    <delete id="delete" parameterType="int">
+        DELETE FROM teachers WHERE id = #{id}
+    </delete>
 </mapper>

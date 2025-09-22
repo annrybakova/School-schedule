@@ -5,6 +5,7 @@ import com.solvd.school.model.Subject;
 import com.solvd.school.service.interfaces.ISubjectService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 public class SubjectServiceImpl implements ISubjectService {

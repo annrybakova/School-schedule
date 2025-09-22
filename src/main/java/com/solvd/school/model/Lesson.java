@@ -17,6 +17,16 @@ public class Lesson {
 
     public Lesson() {}
 
+    public Lesson(int classId, int subjectId, int teacherId, int classroomId,
+                  int dayOfWeek, int lessonNumber) {
+        this.classId = classId;
+        this.subjectId = subjectId;
+        this.teacherId = teacherId;
+        this.classroomId = classroomId;
+        this.dayOfWeek = dayOfWeek;
+        this.lessonNumber = lessonNumber;
+    }
+
     public Lesson(int id, int classId, int subjectId, int teacherId, int classroomId,
                   Integer groupId, int dayOfWeek, int lessonNumber) {
         this.id = id;

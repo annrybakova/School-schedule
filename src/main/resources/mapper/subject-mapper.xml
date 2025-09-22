@@ -1,34 +1,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.SubjectsMapper">
-  <resultMap id="SubjectResult" type="com.solvd.school.models.Subject">
-    <id property="id" column="id"/>
-    <result property="name" column="name"/>
-    <result property="requiresSpecialRoom" column="requires_special_room"/>
-    <result property="hasStudentGroups" column="has_student_groups"/>
-  </resultMap>
+    <resultMap id="SubjectResult" type="com.solvd.school.models.Subject">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="requiresSpecialRoom" column="requires_special_room"/>
+        <result property="hasStudentGroups" column="has_student_groups"/>
+    </resultMap>
 
-  <select id="getById" parameterType="int" resultMap="SubjectResult">
-    SELECT id, name, requires_special_room, has_student_groups FROM subjects WHERE id = #{id}
-  </select>
+    <select id="getById" parameterType="int" resultMap="SubjectResult">
+        SELECT id, name, requires_special_room, has_student_groups FROM subjects WHERE id = #{id}
+    </select>
 
-  <select id="getAll" resultMap="SubjectResult">
-    SELECT id, name, requires_special_room, has_student_groups FROM subjects ORDER BY id
-  </select>
+    <select id="getAll" resultMap="SubjectResult">
+        SELECT id, name, requires_special_room, has_student_groups FROM subjects ORDER BY id
+    </select>
 
-  <insert id="insert" parameterType="com.solvd.school.models.Subject" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    INSERT INTO subjects (name, requires_special_room, has_student_groups)
-    VALUES (#{name}, #{requiresSpecialRoom}, #{hasStudentGroups})
-  </insert>
+    <insert id="insert" parameterType="com.solvd.school.models.Subject" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        INSERT INTO subjects (name, requires_special_room, has_student_groups)
+        VALUES (#{name}, #{requiresSpecialRoom}, #{hasStudentGroups})
+    </insert>
 
-  <update id="update" parameterType="com.solvd.school.models.Subject">
-    UPDATE subjects
-    SET name = #{name},
+    <update id="update" parameterType="com.solvd.school.models.Subject">
+        UPDATE subjects
+        SET name = #{name},
         requires_special_room = #{requiresSpecialRoom},
         has_student_groups = #{hasStudentGroups}
-    WHERE id = #{id}
-  </update>
+        WHERE id = #{id}
+    </update>
 
-  <delete id="delete" parameterType="int">
-    DELETE FROM subjects WHERE id = #{id}
-  </delete>
+    <delete id="delete" parameterType="int">
+        DELETE FROM subjects WHERE id = #{id}
+    </delete>
 </mapper>

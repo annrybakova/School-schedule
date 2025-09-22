@@ -1,6 +1,7 @@
 package com.solvd.school.dao.interfaces;
 
 import com.solvd.school.model.GeneratedSchedule;
+
 import java.util.List;
 
 public interface IGeneratedSchedulesDAO {

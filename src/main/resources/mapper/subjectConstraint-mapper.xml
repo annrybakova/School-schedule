@@ -1,34 +1,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.SubjectConstraintsMapper">
-  <resultMap id="SubjectConstraintResult" type="com.solvd.school.models.SubjectConstraint">
-    <id property="id" column="id"/>
-    <result property="subjectId" column="subject_id"/>
-    <result property="notFirstLesson" column="not_first_lesson"/>
-    <result property="notLastLesson" column="not_last_lesson"/>
-    <result property="preferredLesson" column="preferred_lesson"/>
-    <result property="maxLessonsPerDay" column="max_lessons_per_day"/>
-  </resultMap>
+    <resultMap id="SubjectConstraintResult" type="com.solvd.school.models.SubjectConstraint">
+        <id property="id" column="id"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="notFirstLesson" column="not_first_lesson"/>
+        <result property="notLastLesson" column="not_last_lesson"/>
+        <result property="preferredLesson" column="preferred_lesson"/>
+        <result property="maxLessonsPerDay" column="max_lessons_per_day"/>
+    </resultMap>
 
-  <select id="getBySubjectId" parameterType="int" resultMap="SubjectConstraintResult">
-    SELECT id, subject_id, not_first_lesson, not_last_lesson, preferred_lesson, max_lessons_per_day
-    FROM subject_constraints WHERE subject_id = #{subjectId}
-  </select>
+    <select id="getBySubjectId" parameterType="int" resultMap="SubjectConstraintResult">
+        SELECT id, subject_id, not_first_lesson, not_last_lesson, preferred_lesson, max_lessons_per_day
+        FROM subject_constraints WHERE subject_id = #{subjectId}
+    </select>
 
-  <insert id="insert" parameterType="com.solvd.school.models.SubjectConstraint" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    INSERT INTO subject_constraints (subject_id, not_first_lesson, not_last_lesson, preferred_lesson, max_lessons_per_day)
-    VALUES (#{subjectId}, #{notFirstLesson}, #{notLastLesson}, #{preferredLesson}, #{maxLessonsPerDay})
-  </insert>
+    <insert id="insert" parameterType="com.solvd.school.models.SubjectConstraint" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO subject_constraints (subject_id, not_first_lesson, not_last_lesson, preferred_lesson,
+        max_lessons_per_day)
+        VALUES (#{subjectId}, #{notFirstLesson}, #{notLastLesson}, #{preferredLesson}, #{maxLessonsPerDay})
+    </insert>
 
-  <update id="update" parameterType="com.solvd.school.models.SubjectConstraint">
-    UPDATE subject_constraints
-    SET not_first_lesson = #{notFirstLesson},
+    <update id="update" parameterType="com.solvd.school.models.SubjectConstraint">
+        UPDATE subject_constraints
+        SET not_first_lesson = #{notFirstLesson},
         not_last_lesson = #{notLastLesson},
         preferred_lesson = #{preferredLesson},
         max_lessons_per_day = #{maxLessonsPerDay}
-    WHERE subject_id = #{subjectId}
-  </update>
+        WHERE subject_id = #{subjectId}
+    </update>
 
-  <delete id="deleteBySubjectId" parameterType="int">
-    DELETE FROM subject_constraints WHERE subject_id = #{subjectId}
-  </delete>
+    <delete id="deleteBySubjectId" parameterType="int">
+        DELETE FROM subject_constraints WHERE subject_id = #{subjectId}
+    </delete>
 </mapper>

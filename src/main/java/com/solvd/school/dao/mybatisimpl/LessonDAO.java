@@ -33,6 +33,13 @@ public class LessonDAO implements ILessonsDAO {
     }
 
     @Override
+    public int countAll(Lesson lesson) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".countAll", lesson);
+        }
+    }
+
+    @Override
     public void insert(Lesson lesson) {
         try (SqlSession s = sf.openSession(true)) {
             s.insert(NS + ".insert", lesson);

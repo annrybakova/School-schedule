@@ -8,6 +8,7 @@ import com.solvd.school.service.interfaces.IScheduleService;
 //import com.solvd.school.generator.BasicScheduleGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 public class ScheduleServiceImpl implements IScheduleService {
