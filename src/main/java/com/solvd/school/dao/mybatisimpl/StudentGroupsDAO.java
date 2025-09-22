@@ -1,7 +1,6 @@
 package com.solvd.school.dao.mybatisimpl;
 
 import com.solvd.school.dao.interfaces.IStudentGroupsDAO;
-import com.solvd.school.model.StudentGroup;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 import java.util.List;

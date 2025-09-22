@@ -6,14 +6,12 @@ public class Lesson {
     private int subjectId;
     private int teacherId;
     private int classroomId;
-    //private Integer groupId;
     private int dayOfWeek;
     private int lessonNumber;
     private SchoolClass schoolClass;
     private Subject subject;
     private Teacher teacher;
     private Classroom classroom;
-    //private StudentGroup group;
 
     public Lesson() {}
 
@@ -23,18 +21,6 @@ public class Lesson {
         this.subjectId = subjectId;
         this.teacherId = teacherId;
         this.classroomId = classroomId;
-        this.dayOfWeek = dayOfWeek;
-        this.lessonNumber = lessonNumber;
-    }
-
-    public Lesson(int id, int classId, int subjectId, int teacherId, int classroomId,
-                  Integer groupId, int dayOfWeek, int lessonNumber) {
-        this.id = id;
-        this.classId = classId;
-        this.subjectId = subjectId;
-        this.teacherId = teacherId;
-        this.classroomId = classroomId;
-        //this.groupId = groupId;
         this.dayOfWeek = dayOfWeek;
         this.lessonNumber = lessonNumber;
     }
@@ -54,9 +40,6 @@ public class Lesson {
     public int getClassroomId() { return classroomId; }
     public void setClassroomId(int classroomId) { this.classroomId = classroomId; }
 
-    //public Integer getGroupId() { return groupId; }
-    //public void setGroupId(Integer groupId) { this.groupId = groupId; }
-
     public int getDayOfWeek() { return dayOfWeek; }
     public void setDayOfWeek(int dayOfWeek) { this.dayOfWeek = dayOfWeek; }
 
@@ -74,9 +57,6 @@ public class Lesson {
 
     public Classroom getClassroom() { return classroom; }
     public void setClassroom(Classroom classroom) { this.classroom = classroom; }
-
-    //public StudentGroup getGroup() { return group; }
-    //public void setGroup(StudentGroup group) { this.group = group; }
 
     @Override
     public String toString() {
