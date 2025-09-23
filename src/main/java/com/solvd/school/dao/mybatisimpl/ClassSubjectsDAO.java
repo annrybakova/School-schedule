@@ -22,14 +22,12 @@ public class ClassSubjectsDAO implements IClassSubjectDAO {
         }
     }
 
-    @Override
     public List<ClassSubject> getByClassId(int classId) {
         try (SqlSession s = sf.openSession()) {
             return s.selectList(NS + ".getByClassId", classId);
         }
     }
 
-    @Override
     public ClassSubject getByClassAndSubject(int classId, int subjectId) {
         Map<String, Object> p = new HashMap<>();
         p.put("classId", classId);
@@ -64,5 +62,12 @@ public class ClassSubjectsDAO implements IClassSubjectDAO {
     @Override
     public List<ClassSubject> getAll() {
         return List.of();
+    }
+
+    @Override
+    public Integer getRandomSubjectIdForClass(int classId) {
+        try (SqlSession s = sf.openSession()){
+            return s.selectOne(NS + ".getRandomSubjectIdForClass", classId);
+        }
     }
 }

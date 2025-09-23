@@ -5,6 +5,5 @@ import java.util.List;
 
 public interface IClassSubjectDAO extends IGenericDAO<ClassSubject>{
     List<ClassSubject> getAll();
-
     Integer getRandomSubjectIdForClass(int classId);
 }

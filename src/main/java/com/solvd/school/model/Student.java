@@ -7,7 +7,6 @@ public class Student {
     private int classId;
     private int groupId;
     private SchoolClass schoolClass;
-    private StudentGroup group;
 
     public Student() {}
 
@@ -36,9 +35,6 @@ public class Student {
 
     public SchoolClass getSchoolClass() { return schoolClass; }
     public void setSchoolClass(SchoolClass schoolClass) { this.schoolClass = schoolClass; }
-
-    public StudentGroup getGroup() { return group; }
-    public void setGroup(StudentGroup group) { this.group = group; }
 
     @Override
     public String toString() {

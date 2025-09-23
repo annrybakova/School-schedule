@@ -11,5 +11,4 @@ public interface ILessonService {
     void updateLesson(Lesson lesson);
     void deleteLesson(int id);
     boolean isTimeSlotOccupied(int classId, int dayOfWeek, int lessonNumber);
-    void insertRandomLesson();
 }
