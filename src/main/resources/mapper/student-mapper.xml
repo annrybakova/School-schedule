@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.StudentsMapper">
-    <resultMap id="StudentResult" type="com.solvd.school.models.Student">
+    <resultMap id="StudentResult" type="com.solvd.school.model.Student">
         <id property="id" column="id"/>
         <result property="firstName" column="first_name"/>
         <result property="lastName" column="last_name"/>
@@ -24,13 +24,13 @@
         SELECT id, first_name, last_name, class_id, group_id FROM students ORDER BY id
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.Student" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insert" parameterType="com.solvd.school.model.Student" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO students (first_name, last_name, class_id, group_id)
         VALUES (#{firstName}, #{lastName}, #{classId}, #{groupId})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.Student">
+    <update id="update" parameterType="com.solvd.school.model.Student">
         UPDATE students
         SET first_name = #{firstName},
         last_name = #{lastName},

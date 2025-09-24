@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.LessonsMapper">
-    <resultMap id="LessonResult" type="com.solvd.school.models.Lesson">
+    <resultMap id="LessonResult" type="com.solvd.school.model.Lesson">
         <id property="id" column="id"/>
         <result property="classId" column="class_id"/>
         <result property="subjectId" column="subject_id"/>
@@ -31,14 +31,14 @@
         ORDER BY lesson_number
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.Lesson" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insert" parameterType="com.solvd.school.model.Lesson" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO lessons (class_id, subject_id, teacher_id, classroom_id, group_id, day_of_week, lesson_number)
         VALUES (#{classId}, #{subjectId}, #{teacherId}, #{classroomId},
         #{groupId, jdbcType=INTEGER}, #{dayOfWeek}, #{lessonNumber})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.Lesson">
+    <update id="update" parameterType="com.solvd.school.model.Lesson">
         UPDATE lessons
         SET class_id = #{classId},
         subject_id = #{subjectId},

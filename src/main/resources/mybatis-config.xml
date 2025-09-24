@@ -16,19 +16,18 @@
     </environments>
 
 <mappers>
-    <mapper resource="mappers/ClassesMapper.xml"/>
-    <mapper resource="mappers/SubjectsMapper.xml"/>
-    <mapper resource="mappers/ClassroomsMapper.xml"/>
-    <mapper resource="mappers/TeachersMapper.xml"/>
-    <mapper resource="mappers/StudentGroupsMapper.xml"/>
-    <mapper resource="mappers/StudentsMapper.xml"/>
-    <mapper resource="mappers/ClassSubjectsMapper.xml"/>
-    <mapper resource="mappers/SpecialClassroomsMapper.xml"/>
-    <mapper resource="mappers/SubjectConstraintsMapper.xml"/>
-    <mapper resource="mappers/LessonsMapper.xml"/>
-    <mapper resource="mappers/TeacherAvailabilityMapper.xml"/>
-    <mapper resource="mappers/GeneticAlgorithmParamsMapper.xml"/>
-    <mapper resource="mappers/ScheduleGenerationLogMapper.xml"/>
-    <mapper resource="mappers/GeneratedSchedulesMapper.xml"/>
+    <mapper resource="mapper/class-mapper.xml"/>
+    <mapper resource="mapper/subject-mapper.xml"/>
+    <mapper resource="mapper/classroom-mapper.xml"/>
+    <mapper resource="mapper/teacher-mapper.xml"/>
+    <mapper resource="mapper/student-mapper.xml"/>
+    <mapper resource="mapper/classSubject-mapper.xml"/>
+    <mapper resource="mapper/specialClassrooms-mapper.xml"/>
+    <mapper resource="mapper/subjectConstraint-mapper.xml"/>
+    <mapper resource="mapper/lesson-mapper.xml"/>
+    <mapper resource="mapper/teacherAvailability-mapper.xml"/>
+    <mapper resource="mapper/geneticAlgorithmParams-mapper.xml"/>
+    <mapper resource="mapper/scheduleGenerationLog-mapper.xml"/>
+    <mapper resource="mapper/generatedSchedule-mapper.xml"/>
 </mappers>
 </configuration>

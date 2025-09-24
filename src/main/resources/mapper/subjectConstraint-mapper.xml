@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.SubjectConstraintsMapper">
-    <resultMap id="SubjectConstraintResult" type="com.solvd.school.models.SubjectConstraint">
+    <resultMap id="SubjectConstraintResult" type="com.solvd.school.model.SubjectConstraint">
         <id property="id" column="id"/>
         <result property="subjectId" column="subject_id"/>
         <result property="notFirstLesson" column="not_first_lesson"/>
@@ -14,14 +14,14 @@
         FROM subject_constraints WHERE subject_id = #{subjectId}
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.SubjectConstraint" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.solvd.school.model.SubjectConstraint" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO subject_constraints (subject_id, not_first_lesson, not_last_lesson, preferred_lesson,
         max_lessons_per_day)
         VALUES (#{subjectId}, #{notFirstLesson}, #{notLastLesson}, #{preferredLesson}, #{maxLessonsPerDay})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.SubjectConstraint">
+    <update id="update" parameterType="com.solvd.school.model.SubjectConstraint">
         UPDATE subject_constraints
         SET not_first_lesson = #{notFirstLesson},
         not_last_lesson = #{notLastLesson},

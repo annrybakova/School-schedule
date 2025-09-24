@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.SubjectsMapper">
-    <resultMap id="SubjectResult" type="com.solvd.school.models.Subject">
+    <resultMap id="SubjectResult" type="com.solvd.school.model.Subject">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="requiresSpecialRoom" column="requires_special_room"/>
@@ -15,13 +15,13 @@
         SELECT id, name, requires_special_room, has_student_groups FROM subjects ORDER BY id
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.Subject" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insert" parameterType="com.solvd.school.model.Subject" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO subjects (name, requires_special_room, has_student_groups)
         VALUES (#{name}, #{requiresSpecialRoom}, #{hasStudentGroups})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.Subject">
+    <update id="update" parameterType="com.solvd.school.model.Subject">
         UPDATE subjects
         SET name = #{name},
         requires_special_room = #{requiresSpecialRoom},

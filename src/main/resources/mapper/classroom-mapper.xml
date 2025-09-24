@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.ClassroomsMapper">
-    <resultMap id="ClassroomResult" type="com.solvd.school.models.Classroom">
+    <resultMap id="ClassroomResult" type="com.solvd.school.model.Classroom">
         <id property="id" column="id"/>
         <result property="roomNumber" column="room_number"/>
         <result property="isSpecial" column="is_special"/>
@@ -26,13 +26,13 @@
         SELECT id, room_number, is_special, capacity FROM classrooms ORDER BY id
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.Classroom" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insert" parameterType="com.solvd.school.model.Classroom" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO classrooms (room_number, is_special, capacity)
         VALUES (#{roomNumber}, #{isSpecial}, #{capacity})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.Classroom">
+    <update id="update" parameterType="com.solvd.school.model.Classroom">
         UPDATE classrooms
         SET room_number = #{roomNumber},
         is_special = #{isSpecial},

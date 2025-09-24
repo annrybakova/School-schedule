@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.ScheduleGenerationLogMapper">
-    <resultMap id="GenLogResult" type="com.solvd.school.models.ScheduleGenerationLog">
+    <resultMap id="GenLogResult" type="com.solvd.school.model.ScheduleGenerationLog">
         <id property="id" column="id"/>
         <result property="generationDate" column="generation_date"/>
         <result property="status" column="status"/>
@@ -15,7 +15,7 @@
         FROM schedule_generation_log WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.ScheduleGenerationLog" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.solvd.school.model.ScheduleGenerationLog" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO schedule_generation_log
         (generation_date, status, generations_executed, best_fitness_score, algorithm_params_id, message)
@@ -23,7 +23,7 @@
         #{algorithmParamsId, jdbcType=INTEGER}, #{message})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.ScheduleGenerationLog">
+    <update id="update" parameterType="com.solvd.school.model.ScheduleGenerationLog">
         UPDATE schedule_generation_log
         SET status = #{status},
         generations_executed = #{generationsExecuted},

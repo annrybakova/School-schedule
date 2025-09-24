@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.GeneticAlgorithmParamsMapper">
-    <resultMap id="GAPResult" type="com.solvd.school.models.GeneticAlgorithmParams">
+    <resultMap id="GAPResult" type="com.solvd.school.model.GeneticAlgorithmParams">
         <id property="id" column="id"/>
         <result property="maxGenerations" column="max_generations"/>
         <result property="allowedGaps" column="allowed_gaps"/>
@@ -16,7 +16,7 @@
         FROM genetic_algorithm_params WHERE is_active = TRUE ORDER BY id DESC LIMIT 1
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.GeneticAlgorithmParams" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.solvd.school.model.GeneticAlgorithmParams" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO genetic_algorithm_params
         (max_generations, allowed_gaps, population_size, mutation_rate, crossover_rate, description, is_active)
@@ -24,7 +24,7 @@
         #{isActive})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.GeneticAlgorithmParams">
+    <update id="update" parameterType="com.solvd.school.model.GeneticAlgorithmParams">
         UPDATE genetic_algorithm_params
         SET max_generations = #{maxGenerations},
         allowed_gaps = #{allowedGaps},

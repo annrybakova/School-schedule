@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.GeneratedSchedulesMapper">
-    <resultMap id="GeneratedScheduleResult" type="com.solvd.school.models.GeneratedSchedule">
+    <resultMap id="GeneratedScheduleResult" type="com.solvd.school.model.GeneratedSchedule">
         <id property="id" column="id"/>
         <result property="generationId" column="generation_id"/>
         <result property="lessonId" column="lesson_id"/>
@@ -12,7 +12,7 @@
         ORDER BY id
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.GeneratedSchedule" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.solvd.school.model.GeneratedSchedule" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO generated_schedules (generation_id, lesson_id)
         VALUES (#{generationId}, #{lessonId})

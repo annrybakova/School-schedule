@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.TeachersMapper">
-    <resultMap id="TeacherResult" type="com.solvd.school.models.Teacher">
+    <resultMap id="TeacherResult" type="com.solvd.school.model.Teacher">
         <id property="id" column="id"/>
         <result property="firstName" column="first_name"/>
         <result property="lastName" column="last_name"/>
@@ -31,13 +31,13 @@
         FROM teachers WHERE subject_id = #{subjectId}
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.Teacher" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insert" parameterType="com.solvd.school.model.Teacher" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO teachers (first_name, last_name, subject_id, max_lessons_per_day)
         VALUES (#{firstName}, #{lastName}, #{subjectId}, #{maxLessonsPerDay})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.Teacher">
+    <update id="update" parameterType="com.solvd.school.model.Teacher">
         UPDATE teachers
         SET first_name = #{firstName},
         last_name = #{lastName},

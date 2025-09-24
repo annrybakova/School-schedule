@@ -1,9 +1,7 @@
 package com.solvd.school.generator.weeklyScheduleGenerator.interfaces;
 
-import com.solvd.school.model.Lesson;
-
-import java.util.List;
+import com.solvd.school.model.schedule.WeeklySchedule;
 
 public interface IWeeklyScheduleGenerator {
-    List<List<Lesson>> getWeeklyScheduleFor(int classId);
+    WeeklySchedule getWeeklyScheduleFor(int classId);
 }

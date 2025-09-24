@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.SpecialClassroomsMapper">
-    <resultMap id="SpecialClassroomResult" type="com.solvd.school.models.SpecialClassroom">
+    <resultMap id="SpecialClassroomResult" type="com.solvd.school.model.SpecialClassroom">
         <id property="id" column="id"/>
         <result property="subjectId" column="subject_id"/>
         <result property="classroomId" column="classroom_id"/>
@@ -14,7 +14,7 @@
         SELECT id, subject_id, classroom_id FROM special_classrooms WHERE subject_id = #{subjectId}
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.SpecialClassroom" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.solvd.school.model.SpecialClassroom" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO special_classrooms (subject_id, classroom_id)
         VALUES (#{subjectId}, #{classroomId})

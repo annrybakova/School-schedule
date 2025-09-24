@@ -1,9 +1,7 @@
 package com.solvd.school.generator.dailyScheduleGenerator.interfaces;
 
-import com.solvd.school.model.Lesson;
-
-import java.util.List;
+import com.solvd.school.model.schedule.DailySchedule;
 
 public interface IDailyScheduleGenerator {
-    List<Lesson> getDailyScheduleFor(int classId);
+    DailySchedule getDailyScheduleFor(int classId);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.school.mybatis.mappers.class-mapper">
-    <resultMap id="SchoolClassResult" type="com.solvd.school.models.SchoolClass">
+    <resultMap id="SchoolClassResult" type="com.solvd.school.model.SchoolClass">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
     </resultMap>
@@ -22,12 +22,12 @@
         SELECT id, name FROM classes ORDER BY id
     </select>
 
-    <insert id="insert" parameterType="com.solvd.school.models.SchoolClass" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insert" parameterType="com.solvd.school.model.SchoolClass" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO classes (name) VALUES (#{name})
     </insert>
 
-    <update id="update" parameterType="com.solvd.school.models.SchoolClass">
+    <update id="update" parameterType="com.solvd.school.model.SchoolClass">
         UPDATE classes SET name = #{name} WHERE id = #{id}
     </update>
 
