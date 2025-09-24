@@ -1,5 +1,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.school.mybatis.mappers.StudentsMapper">
+<mapper namespace="com.solvd.school.dao.interfaces.IStudentsDAO">
     <resultMap id="StudentResult" type="com.solvd.school.model.Student">
         <id property="id" column="id"/>
         <result property="firstName" column="first_name"/>

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.*;
 
 public class ScheduleGenerationLogDAO implements IScheduleGenerationLogDAO {
     private static final Logger log = LogManager.getLogger(ScheduleGenerationLogDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.ScheduleGenerationLogMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IScheduleGenerationLogDAO";
     private final SqlSessionFactory sf;
 
     public ScheduleGenerationLogDAO(SqlSessionFactory sf) {

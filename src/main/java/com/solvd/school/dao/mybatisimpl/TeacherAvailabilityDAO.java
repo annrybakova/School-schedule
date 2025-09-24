@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TeacherAvailabilityDAO implements ITeacherAvailabilityDAO {
     private static final Logger log = LogManager.getLogger(TeacherAvailabilityDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.TeacherAvailabilityMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.ITeacherAvailabilityDAO";
     private final SqlSessionFactory sf;
 
     public TeacherAvailabilityDAO(SqlSessionFactory sf) {

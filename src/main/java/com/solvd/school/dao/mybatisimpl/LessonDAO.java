@@ -8,7 +8,7 @@ import java.util.*;
 
 public class LessonDAO implements ILessonsDAO {
     private static final Logger log = LogManager.getLogger(LessonDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.LessonsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.ILessonsDAO";
     private final SqlSessionFactory sf;
 
     public LessonDAO(SqlSessionFactory sf) {

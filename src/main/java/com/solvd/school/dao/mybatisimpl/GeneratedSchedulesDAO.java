@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GeneratedSchedulesDAO implements IGeneratedSchedulesDAO {
     private static final Logger log = LogManager.getLogger(GeneratedSchedulesDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.GeneratedSchedulesMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IGeneratedSchedulesDAO";
     private final SqlSessionFactory sf;
 
     public GeneratedSchedulesDAO(SqlSessionFactory sf) {

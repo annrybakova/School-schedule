@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SubjectDAO implements ISubjectsDAO {
     private static final Logger log = LogManager.getLogger(SubjectDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.SubjectsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.ISubjectsDAO";
     private final SqlSessionFactory sf;
 
     public SubjectDAO(SqlSessionFactory sf) {

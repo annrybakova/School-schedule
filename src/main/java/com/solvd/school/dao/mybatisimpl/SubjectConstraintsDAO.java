@@ -7,7 +7,7 @@ import org.apache.logging.log4j.*;
 
 public class SubjectConstraintsDAO implements ISubjectConstraintsDAO {
     private static final Logger log = LogManager.getLogger(SubjectConstraintsDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.SubjectConstraintsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.ISubjectConstraintsDAO";
     private final SqlSessionFactory sf;
 
     public SubjectConstraintsDAO(SqlSessionFactory sf) {

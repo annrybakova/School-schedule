@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StudentDAO implements IStudentsDAO {
     private static final Logger log = LogManager.getLogger(StudentDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.StudentsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IStudentsDAO";
     private final SqlSessionFactory sf;
 
     public StudentDAO(SqlSessionFactory sf) {

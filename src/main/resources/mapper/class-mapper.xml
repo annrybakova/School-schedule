@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.school.mybatis.mappers.class-mapper">
+<mapper namespace="com.solvd.school.dao.interfaces.IClassDAO">
     <resultMap id="SchoolClassResult" type="com.solvd.school.model.SchoolClass">
         <id property="id" column="id"/>
         <result property="name" column="name"/>

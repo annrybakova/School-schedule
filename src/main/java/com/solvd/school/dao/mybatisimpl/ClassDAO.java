@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ClassDAO implements IClassDAO {
     private static final Logger log = LogManager.getLogger(ClassDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.class-mapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IClassDAO";
     private final SqlSessionFactory sf;
 
     public ClassDAO(SqlSessionFactory sf) {
