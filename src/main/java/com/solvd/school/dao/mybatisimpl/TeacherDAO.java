@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TeacherDAO implements ITeachersDAO {
     private static final Logger log = LogManager.getLogger(TeacherDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.TeachersMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.ITeachersDAO";
     private final SqlSessionFactory sf;
 
     public TeacherDAO(SqlSessionFactory sf) {

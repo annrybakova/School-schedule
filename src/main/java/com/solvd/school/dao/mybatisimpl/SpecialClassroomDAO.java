@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SpecialClassroomDAO implements ISpecialClassroomsDAO {
     private static final Logger log = LogManager.getLogger(SpecialClassroomDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.SpecialClassroomsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.ISpecialClassroomsDAO";
     private final SqlSessionFactory sf;
 
     public SpecialClassroomDAO(SqlSessionFactory sf) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ClassroomsDAO implements IClassroomsDAO {
     private static final Logger log = LogManager.getLogger(ClassroomsDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.ClassroomsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IClassroomsDAO";
     private final SqlSessionFactory sf;
 
     public ClassroomsDAO(SqlSessionFactory sf) {

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.*;
 
 public class GeneticAlgorithmParamsDAO implements IGeneticAlgorithmParamsDAO {
     private static final Logger log = LogManager.getLogger(GeneticAlgorithmParamsDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.GeneticAlgorithmParamsMapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IGeneticAlgorithmParamsDAO";
     private final SqlSessionFactory sf;
 
     public GeneticAlgorithmParamsDAO(SqlSessionFactory sf) {

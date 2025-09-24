@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ClassSubjectDAO implements IClassSubjectDAO {
     private static final Logger log = LogManager.getLogger(ClassSubjectDAO.class);
-    private static final String NS = "com.solvd.school.mybatis.mappers.classSubject-mapper";
+    private static final String NS = "com.solvd.school.dao.interfaces.IClassSubjectDAO";
     private final SqlSessionFactory sf;
 
     public ClassSubjectDAO(SqlSessionFactory sf) {

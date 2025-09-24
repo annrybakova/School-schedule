@@ -1,5 +1,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.school.mybatis.mappers.ScheduleGenerationLogMapper">
+<mapper namespace="com.solvd.school.dao.interfaces.IScheduleGenerationLogDAO">
     <resultMap id="GenLogResult" type="com.solvd.school.model.ScheduleGenerationLog">
         <id property="id" column="id"/>
         <result property="generationDate" column="generation_date"/>
