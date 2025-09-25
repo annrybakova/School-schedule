@@ -78,7 +78,7 @@ mvn clean install
 4. Run the application
 
 ```
-mvn exec:java -Dexec.mainClass="com.solvd.school.Main"
+mvn exec:java
 ```
 
 ## Authors
