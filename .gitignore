@@ -7,3 +7,4 @@
 **/.DS_Store
 /.mvn/
 /*.properties
+database.properties
