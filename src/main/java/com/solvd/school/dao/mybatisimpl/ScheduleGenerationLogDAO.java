@@ -42,4 +42,12 @@ public class ScheduleGenerationLogDAO implements IScheduleGenerationLogDAO {
             s.delete(NS + ".delete", id);
         }
     }
+
+    @Override
+    public ScheduleGenerationLog getLastLog() {
+        try (SqlSession s = sf.openSession()) {
+                return s.selectOne(NS + ".getLastLog");
+        }
+    }
+    
 }

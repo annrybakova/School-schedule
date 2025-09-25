@@ -5,7 +5,9 @@ import com.solvd.school.model.Subject;
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SubjectDAO implements ISubjectsDAO {
     private static final Logger log = LogManager.getLogger(SubjectDAO.class);
@@ -51,4 +53,21 @@ public class SubjectDAO implements ISubjectsDAO {
             s.delete(NS + ".delete", id);
         }
     }
+
+    @Override
+    public List<Subject> getByClassId(int classId) {        
+        try (SqlSession s = sf.openSession()) {
+            return s.selectList(NS + ".getByClassId", classId);
+        }
+     }
+
+    @Override
+    public int getLessonsPerWeek(int classId, int subjectId) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("classId", classId);
+        p.put("subjectId", subjectId);
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getLessonsPerWeek", p);
+        }
+     }
 }

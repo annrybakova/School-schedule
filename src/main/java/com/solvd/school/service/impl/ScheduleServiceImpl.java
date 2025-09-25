@@ -15,36 +15,34 @@ public class ScheduleServiceImpl implements IScheduleService {
     private static final Logger logger = LogManager.getLogger(ScheduleServiceImpl.class);
     private final ILessonsDAO lessonsDAO;
     private final IScheduleGenerationLogDAO logDAO;
-    //private final BasicScheduleGenerator generator;
+    // private final BasicScheduleGenerator generator;
 
     public ScheduleServiceImpl(ILessonsDAO lessonsDAO, IScheduleGenerationLogDAO logDAO) {
         this.lessonsDAO = lessonsDAO;
         this.logDAO = logDAO;
-        //this.generator = generator;
+        // this.generator = generator;
     }
 
     @Override
     public void generateSchedule() {
         logger.info("Starting schedule generation...");
-        //generator.generateBasicSchedule();
+        // generator.generateBasicSchedule();
         logger.info("Schedule generation completed");
     }
 
     @Override
     public List<Lesson> getClassSchedule(int classId) {
-        return lessonsDAO.getByClassAndDay(classId, 0); // 0 = all days
+        return lessonsDAO.getByClass(classId);
     }
 
     @Override
     public List<Lesson> getTeacherSchedule(int teacherId) {
-        // Implementation needed
-        return List.of();
+        return lessonsDAO.getByTeacher(teacherId);
     }
 
     @Override
     public List<Lesson> getClassroomSchedule(int classroomId) {
-        // Implementation needed
-        return List.of();
+        return lessonsDAO.getByClassroom(classroomId);
     }
 
     @Override
@@ -62,7 +60,6 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public ScheduleGenerationLog getLastGenerationLog() {
-        // Implementation needed
-        return null;
+        return logDAO.getLastLog();
     }
 }

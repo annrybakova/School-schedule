@@ -32,4 +32,18 @@
     <delete id="delete" parameterType="int">
         DELETE FROM subjects WHERE id = #{id}
     </delete>
+
+    <select id="getByClassId" parameterType="int" resultMap="SubjectResult">
+        SELECT s.id, s.name, s.requires_special_room
+        FROM subjects s
+        JOIN class_subjects cs ON s.id = cs.subject_id
+        WHERE cs.class_id = #{classId}
+    </select>
+
+    <select id="getLessonsPerWeek" parameterType="map" resultType="int">
+        SELECT cs.lessons_per_week
+        FROM class_subjects cs
+        WHERE cs.class_id = #{classId} AND cs.subject_id = #{subjectId}
+    </select>
+
 </mapper>

@@ -11,4 +11,6 @@ public interface ISpecialClassroomsDAO {
     void insert(SpecialClassroom sc);
 
     void delete(int id);
+
+    Integer getClassroomIdBySubjectId(int subjectId);
 }

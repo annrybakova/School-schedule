@@ -31,6 +31,32 @@
         ORDER BY lesson_number
     </select>
 
+    <select id="getByClassroomAndDay" parameterType="map" resultMap="LessonResult">
+        SELECT * FROM lessons
+        WHERE classroom_id = #{classroomId}
+        AND day_of_week = #{dayOfWeek}
+    </select>
+
+    <select id="getByClassroom" parameterType="int" resultMap="LessonResult">
+        SELECT * FROM lessons 
+        WHERE classroom_id = #{classroomId} 
+        ORDER BY day_of_week, lesson_number
+    </select>
+
+
+    <select id="getByClass" parameterType="int" resultMap="LessonResult">
+        SELECT id, subject_id, teacher_id, classroom_id, class_id, day_of_week, lesson_number
+        FROM lessons
+        WHERE class_id = #{classId}
+        ORDER BY day_of_week, lesson_number
+    </select>
+
+    <select id="getByTeacher" parameterType="int" resultMap="LessonResult">
+        SELECT * FROM lessons 
+        WHERE teacher_id = #{teacherId} 
+        ORDER BY day_of_week, lesson_number
+    </select>
+
     <insert id="insert" parameterType="com.solvd.school.model.Lesson" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO lessons (class_id, subject_id, teacher_id, classroom_id, group_id, day_of_week, lesson_number)
@@ -53,4 +79,11 @@
     <delete id="delete" parameterType="int">
         DELETE FROM lessons WHERE id = #{id}
     </delete>
+
+    <select id="getByTeacherAndDay" parameterType="map" resultMap="LessonResult">
+        SELECT * FROM lessons
+        WHERE teacher_id = #{teacherId} AND day_of_week = #{dayOfWeek}
+        ORDER BY lesson_number
+    </select>
+
 </mapper>

@@ -37,17 +37,24 @@ public class TeacherServiceImpl implements ITeacherService {
 
     @Override
     public boolean isTeacherAvailable(int teacherId, int dayOfWeek, int lessonNumber) {
-        List<Lesson> teacherLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); // Need proper implementation
+        // List<Lesson> teacherLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); //
+        // Need proper implementation
+        // return teacherLessons.stream()
+        // .noneMatch(lesson -> lesson.getTeacherId() == teacherId &&
+        // lesson.getLessonNumber() == lessonNumber);
+        List<Lesson> teacherLessons = lessonsDAO.getByTeacherAndDay(teacherId, dayOfWeek);
         return teacherLessons.stream()
-                .noneMatch(lesson -> lesson.getTeacherId() == teacherId &&
-                        lesson.getLessonNumber() == lessonNumber);
+                .noneMatch(lesson -> lesson.getLessonNumber() == lessonNumber);
     }
 
     @Override
     public int getTeacherLessonsCount(int teacherId, int dayOfWeek) {
-        List<Lesson> teacherLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); // Need proper implementation
-        return (int) teacherLessons.stream()
-                .filter(lesson -> lesson.getTeacherId() == teacherId)
-                .count();
+        // List<Lesson> teacherLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); //
+        // Need proper implementation
+        // return (int) teacherLessons.stream()
+        // .filter(lesson -> lesson.getTeacherId() == teacherId)
+        // .count();
+        List<Lesson> teacherLessons = lessonsDAO.getByTeacherAndDay(teacherId, dayOfWeek);
+        return teacherLessons.size();
     }
 }

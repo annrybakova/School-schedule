@@ -2,6 +2,8 @@ package com.solvd.school.dao.mybatisimpl;
 
 import com.solvd.school.dao.interfaces.ILessonsDAO;
 import com.solvd.school.model.Lesson;
+import com.solvd.school.util.MyBatisUtil;
+
 import org.apache.ibatis.session.*;
 import org.apache.logging.log4j.*;
 import java.util.*;
@@ -58,6 +60,47 @@ public class LessonDAO implements ILessonsDAO {
     public void delete(int id) {
         try (SqlSession s = sf.openSession(true)) {
             s.delete(NS + ".delete", id);
+        }
+    }
+
+    @Override
+    public List<Lesson> getByClass(int classId) {
+        try (SqlSession s = sf.openSession(true)) {
+            return s.selectList(NS + ".getByClass", classId);
+        }
+    }
+
+    @Override
+    public List<Lesson> getByClassroomAndDay(int classroomId, int dayOfWeek) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("classroomId", classroomId);
+        p.put("dayOfWeek", dayOfWeek);
+        try (SqlSession s = sf.openSession()) {
+            return s.selectList(NS + ".getByClassroomAndDay", p);
+        }
+    }
+
+    @Override
+    public List<Lesson> getByTeacher(int teacherId) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectList(NS + ".getByTeacher", teacherId);
+        }
+    }
+
+    @Override
+    public List<Lesson> getByClassroom(int classroomId) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectList(NS + ".getByClassroom", classroomId);
+        }
+    }
+
+    @Override
+    public List<Lesson> getByTeacherAndDay(int teacherId, int dayOfWeek) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("teacherId", teacherId);
+        p.put("dayOfWeek", dayOfWeek);
+        try (SqlSession s = sf.openSession()) {
+            return s.selectList(NS + ".getByTeacherAndDay", p);
         }
     }
 }

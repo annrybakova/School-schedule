@@ -23,4 +23,12 @@
     <delete id="delete" parameterType="int">
         DELETE FROM special_classrooms WHERE id = #{id}
     </delete>
+
+    <select id="getClassroomIdBySubjectId" parameterType="int" resultType="int">
+        SELECT classroom_id 
+        FROM special_classrooms 
+        WHERE subject_id = #{subjectId}
+        LIMIT 1
+    </select>
+
 </mapper>

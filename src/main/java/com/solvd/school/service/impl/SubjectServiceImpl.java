@@ -28,14 +28,12 @@ public class SubjectServiceImpl implements ISubjectService {
 
     @Override
     public List<Subject> getSubjectsForClass(int classId) {
-        // Need to implement class-subject relationship in DAO
-        return getAllSubjects(); // Placeholder
+        return subjectsDAO.getByClassId(classId);
     }
 
     @Override
     public int getLessonsPerWeekForClass(int classId, int subjectId) {
-        // Need to implement class-subject relationship
-        return 3; // Placeholder
+        return subjectsDAO.getLessonsPerWeek(classId, subjectId);
     }
 
     @Override

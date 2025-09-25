@@ -36,4 +36,12 @@
     <delete id="delete" parameterType="int">
         DELETE FROM schedule_generation_log WHERE id = #{id}
     </delete>
+
+    <select id="getLastLog" resultMap="LogResult">
+        SELECT * FROM schedule_generation_log 
+        ORDER BY timestamp 
+        DESC 
+        LIMIT 1
+    </select>
+
 </mapper>

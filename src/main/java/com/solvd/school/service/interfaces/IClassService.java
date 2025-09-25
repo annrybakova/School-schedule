@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IClassService {
     List<SchoolClass> getAllClasses();
+
+    SchoolClass getClassById(int id);
 }

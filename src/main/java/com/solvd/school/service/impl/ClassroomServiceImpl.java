@@ -2,6 +2,7 @@ package com.solvd.school.service.impl;
 
 import com.solvd.school.dao.interfaces.IClassroomsDAO;
 import com.solvd.school.dao.interfaces.ILessonsDAO;
+import com.solvd.school.dao.interfaces.ISpecialClassroomsDAO;
 import com.solvd.school.model.Classroom;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.service.interfaces.IClassroomService;
@@ -14,10 +15,14 @@ public class ClassroomServiceImpl implements IClassroomService {
     private static final Logger logger = LogManager.getLogger(ClassroomServiceImpl.class);
     private final IClassroomsDAO classroomsDAO;
     private final ILessonsDAO lessonsDAO;
+    private final ISpecialClassroomsDAO specialClassroomsDAO;
 
-    public ClassroomServiceImpl(IClassroomsDAO classroomsDAO, ILessonsDAO lessonsDAO) {
+    public ClassroomServiceImpl(IClassroomsDAO classroomsDAO,
+            ILessonsDAO lessonsDAO,
+            ISpecialClassroomsDAO specialClassroomsDAO) {
         this.classroomsDAO = classroomsDAO;
         this.lessonsDAO = lessonsDAO;
+        this.specialClassroomsDAO = specialClassroomsDAO;
     }
 
     @Override
@@ -40,18 +45,42 @@ public class ClassroomServiceImpl implements IClassroomService {
 
     @Override
     public boolean isClassroomAvailable(int classroomId, int dayOfWeek, int lessonNumber) {
-        List<Lesson> classroomLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); // Need proper implementation
-        return classroomLessons.stream()
-                .noneMatch(lesson -> lesson.getClassroomId() == classroomId &&
-                        lesson.getLessonNumber() == lessonNumber);
+        // List<Lesson> classroomLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); // Need proper implementation
+        // return classroomLessons.stream()
+        //         .noneMatch(lesson -> lesson.getClassroomId() == classroomId &&
+        //                 lesson.getLessonNumber() == lessonNumber);
+        List<Lesson> lessonsInRoom = lessonsDAO.getByClassroomAndDay(classroomId, dayOfWeek);
+        return lessonsInRoom.stream()
+                .noneMatch(lesson -> lesson.getLessonNumber() == lessonNumber);
+    
     }
 
     @Override
     public Classroom getSpecialClassroomForSubject(int subjectId) {
         // Implementation for special classrooms (physics, chemistry labs)
-        return getAllClassrooms().stream()
-                .filter(Classroom::isSpecial)
-                .findFirst()
-                .orElse(null);
+        // return getAllClassrooms().stream()
+        // .filter(Classroom::isSpecial)
+        // .findFirst()
+        // .orElse(null);
+        Integer classroomId = specialClassroomsDAO.getClassroomIdBySubjectId(subjectId);
+        if (classroomId == null) {
+            logger.warn("No special classroom found for subjectId={}", subjectId);
+            return null;
+        }
+        return classroomsDAO.getById(classroomId);
+    }
+
+    public boolean hasEnoughCapacity(int classroomId, int studentCount) {
+        Classroom classroom = classroomsDAO.getById(classroomId);
+        if (classroom == null) {
+            logger.error("Classroom with id={} not found!", classroomId);
+            return false;
+        }
+        boolean ok = studentCount <= classroom.getCapacity();
+        if (!ok) {
+            logger.warn("Classroom {} capacity exceeded: {} students > capacity {}",
+                    classroomId, studentCount, classroom.getCapacity());
+        }
+        return ok;
     }
 }

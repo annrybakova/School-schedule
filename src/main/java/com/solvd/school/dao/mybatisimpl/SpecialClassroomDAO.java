@@ -43,4 +43,11 @@ public class SpecialClassroomDAO implements ISpecialClassroomsDAO {
             s.delete(NS + ".delete", id);
         }
     }
+
+    @Override
+    public Integer getClassroomIdBySubjectId(int subjectId) {
+      try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getClassroomIdBySubjectId", subjectId);
+        }
+    }
 }

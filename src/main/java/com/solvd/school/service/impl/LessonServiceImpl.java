@@ -32,8 +32,7 @@ public class LessonServiceImpl implements ILessonService {
 
     @Override
     public List<Lesson> getLessonsByClass(int classId) {
-        // Need to implement proper method in DAO
-        return List.of();
+        return lessonsDAO.getByClass(classId);
     }
 
     @Override

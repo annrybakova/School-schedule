@@ -18,4 +18,9 @@ public class ClassServiceImpl implements IClassService {
     public List<SchoolClass> getAllClasses() {
         return classDAO.getAll();
     }
+
+    @Override
+    public SchoolClass getClassById(int id) {
+        return classDAO.getById(id);
+    }
 }
