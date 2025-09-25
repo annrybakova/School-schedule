@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClassroomServiceImpl implements IClassroomService {
     private static final Logger logger = LogManager.getLogger(ClassroomServiceImpl.class);
@@ -40,7 +41,7 @@ public class ClassroomServiceImpl implements IClassroomService {
         List<Classroom> allClassrooms = classroomsDAO.getAll();
         return allClassrooms.stream()
                 .filter(classroom -> isClassroomAvailable(classroom.getId(), dayOfWeek, lessonNumber))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

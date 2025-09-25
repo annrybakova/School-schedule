@@ -1,11 +1,6 @@
 package com.solvd.school;
 
-import com.solvd.school.dao.mybatisimpl.ClassDAO;
-import com.solvd.school.dao.mybatisimpl.ClassroomsDAO;
-import com.solvd.school.dao.mybatisimpl.LessonDAO;
-import com.solvd.school.dao.mybatisimpl.SpecialClassroomDAO;
-import com.solvd.school.dao.mybatisimpl.SubjectDAO;
-import com.solvd.school.dao.mybatisimpl.TeacherDAO;
+import com.solvd.school.dao.mybatisimpl.*;
 import com.solvd.school.generator.weeklyScheduleGenerator.impl.RandomWeeklyScheduleGenerator;
 import com.solvd.school.generator.weeklyScheduleGenerator.interfaces.IWeeklyScheduleGenerator;
 import com.solvd.school.model.Lesson;
@@ -43,6 +38,7 @@ public class Main {
         LessonDAO lessonDAO = new LessonDAO(sqlSessionFactory);
         TeacherDAO teacherDAO = new TeacherDAO(sqlSessionFactory);
         SubjectDAO subjectDAO = new SubjectDAO(sqlSessionFactory);
+        ClassSubjectDAO classSubjectDAO = new ClassSubjectDAO(sqlSessionFactory);
         ClassroomsDAO classroomDAO = new ClassroomsDAO(sqlSessionFactory);
         ClassDAO classDAO = new ClassDAO(sqlSessionFactory);
         SpecialClassroomDAO specialClassroomDAO = new SpecialClassroomDAO(sqlSessionFactory);
@@ -50,7 +46,7 @@ public class Main {
         // Service Initialization
         ILessonService lessonService = new LessonServiceImpl(lessonDAO);
         ITeacherService teacherService = new TeacherServiceImpl(teacherDAO, lessonDAO);
-        ISubjectService subjectService = new SubjectServiceImpl(subjectDAO);
+        ISubjectService subjectService = new SubjectServiceImpl(subjectDAO, classSubjectDAO);
         IClassroomService classroomService = new ClassroomServiceImpl(classroomDAO, lessonDAO, specialClassroomDAO);
         IClassService classService = new ClassServiceImpl(classDAO);
 

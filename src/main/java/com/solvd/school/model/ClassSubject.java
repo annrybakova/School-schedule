@@ -5,18 +5,16 @@ public class ClassSubject {
     private int classId;
     private int subjectId;
     private int lessonsPerWeek;
-    //private boolean usesGroups;
     private SchoolClass schoolClass;
     private Subject subject;
 
     public ClassSubject() {}
 
-    public ClassSubject(int id, int classId, int subjectId, int lessonsPerWeek, boolean usesGroups) {
+    public ClassSubject(int id, int classId, int subjectId, int lessonsPerWeek) {
         this.id = id;
         this.classId = classId;
         this.subjectId = subjectId;
         this.lessonsPerWeek = lessonsPerWeek;
-        //this.usesGroups = usesGroups;
     }
 
     public int getId() { return id; }
@@ -30,9 +28,6 @@ public class ClassSubject {
 
     public int getLessonsPerWeek() { return lessonsPerWeek; }
     public void setLessonsPerWeek(int lessonsPerWeek) { this.lessonsPerWeek = lessonsPerWeek; }
-
-    //public boolean isUsesGroups() { return usesGroups; }
-    //public void setUsesGroups(boolean usesGroups) { this.usesGroups = usesGroups; }
 
     public SchoolClass getSchoolClass() { return schoolClass; }
     public void setSchoolClass(SchoolClass schoolClass) { this.schoolClass = schoolClass; }

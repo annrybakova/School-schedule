@@ -36,6 +36,11 @@ public class TeacherServiceImpl implements ITeacherService {
     }
 
     @Override
+    public List<Lesson> getTeacherSchedule(int teacherId) {
+        return lessonsDAO.getByTeacher(teacherId);
+    }
+
+    @Override
     public boolean isTeacherAvailable(int teacherId, int dayOfWeek, int lessonNumber) {
         // List<Lesson> teacherLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); //
         // Need proper implementation

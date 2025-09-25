@@ -4,28 +4,26 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="requiresSpecialRoom" column="requires_special_room"/>
-        <result property="hasStudentGroups" column="has_student_groups"/>
     </resultMap>
 
     <select id="getById" parameterType="int" resultMap="SubjectResult">
-        SELECT id, name, requires_special_room, has_student_groups FROM subjects WHERE id = #{id}
+        SELECT id, name, requires_special_room FROM subjects WHERE id = #{id}
     </select>
 
     <select id="getAll" resultMap="SubjectResult">
-        SELECT id, name, requires_special_room, has_student_groups FROM subjects ORDER BY id
+        SELECT id, name, requires_special_room FROM subjects ORDER BY id
     </select>
 
     <insert id="insert" parameterType="com.solvd.school.model.Subject" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
-        INSERT INTO subjects (name, requires_special_room, has_student_groups)
+        INSERT INTO subjects (name, requires_special_room)
         VALUES (#{name}, #{requiresSpecialRoom}, #{hasStudentGroups})
     </insert>
 
     <update id="update" parameterType="com.solvd.school.model.Subject">
         UPDATE subjects
         SET name = #{name},
-        requires_special_room = #{requiresSpecialRoom},
-        has_student_groups = #{hasStudentGroups}
+        requires_special_room = #{requiresSpecialRoom}
         WHERE id = #{id}
     </update>
 
