@@ -6,5 +6,4 @@
 /.vscode/
 **/.DS_Store
 /.mvn/
-/*.properties
-database.properties
+*.properties
