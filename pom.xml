@@ -77,6 +77,16 @@
                 </configuration>
             </plugin>
 
+            <!-- Exec plugin to run mvn exec:java -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>com.solvd.school.Main</mainClass>
+                </configuration>
+            </plugin>
+
             <!-- Surefire Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
