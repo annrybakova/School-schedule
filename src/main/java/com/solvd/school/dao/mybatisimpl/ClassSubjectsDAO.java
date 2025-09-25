@@ -70,4 +70,17 @@ public class ClassSubjectsDAO implements IClassSubjectDAO {
             return s.selectOne(NS + ".getRandomSubjectIdForClass", classId);
         }
     }
+
+    @Override
+    public List<ClassSubject> getBySubjectId(int subjectId) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectList(NS + ".getBySubjectId", subjectId);
+        }
+    }
+
+    @Override
+    public int getLessonsPerWeek(int classId, int subjectId) {
+        ClassSubject cs = getByClassAndSubject(classId, subjectId);
+        return cs != null ? cs.getLessonsPerWeek() : 0;
+    }
 }

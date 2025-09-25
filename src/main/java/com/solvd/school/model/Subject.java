@@ -4,15 +4,13 @@ public class Subject {
     private int id;
     private String name;
     private boolean requiresSpecialRoom;
-    //private boolean hasStudentGroups;
 
     public Subject() {}
 
-    public Subject(int id, String name, boolean requiresSpecialRoom, boolean hasStudentGroups) {
+    public Subject(int id, String name, boolean requiresSpecialRoom) {
         this.id = id;
         this.name = name;
         this.requiresSpecialRoom = requiresSpecialRoom;
-        //this.hasStudentGroups = hasStudentGroups;
     }
 
     public int getId() { return id; }
@@ -23,9 +21,6 @@ public class Subject {
 
     public boolean isRequiresSpecialRoom() { return requiresSpecialRoom; }
     public void setRequiresSpecialRoom(boolean requiresSpecialRoom) { this.requiresSpecialRoom = requiresSpecialRoom; }
-
-    //public boolean isHasStudentGroups() { return hasStudentGroups; }
-    //public void setHasStudentGroups(boolean hasStudentGroups) { this.hasStudentGroups = hasStudentGroups; }
 
     @Override
     public String toString() {

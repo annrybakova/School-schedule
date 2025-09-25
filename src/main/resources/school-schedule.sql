@@ -13,8 +13,7 @@ CREATE TABLE classes (
 CREATE TABLE subjects (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
-    requires_special_room BOOLEAN DEFAULT FALSE,
-    has_student_groups BOOLEAN DEFAULT FALSE
+    requires_special_room BOOLEAN DEFAULT FALSE
 );
 
 -- 3. Classrooms
@@ -38,10 +37,10 @@ CREATE TABLE teachers (
 -- 5. Students
 CREATE TABLE students (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    class_id INT NOT NULL,
-    FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+        first_name VARCHAR(50) NOT NULL,
+        last_name VARCHAR(50) NOT NULL,
+        class_id INT NOT NULL,
+        FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
 );
 
 -- 6. Class-Subjects connection
@@ -50,7 +49,6 @@ CREATE TABLE class_subjects (
     class_id INT NOT NULL,
     subject_id INT NOT NULL,
     lessons_per_week INT NOT NULL,
-    uses_groups BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE,
     UNIQUE KEY unique_class_subject (class_id, subject_id)
@@ -148,24 +146,24 @@ INSERT INTO classes (name) VALUES
 ('10d');
 
 -- 17 school subjects
-INSERT INTO subjects (name, requires_special_room, has_student_groups) VALUES
-('Mathematics', FALSE, TRUE),
-('Physics', TRUE, FALSE),
-('Chemistry', TRUE, FALSE),
-('Physical Education', TRUE, TRUE),
-('Ukrainian Literature', FALSE, FALSE),
-('English Language', FALSE, TRUE),
-('History', FALSE, FALSE),
-('Biology', FALSE, TRUE),
-('Geography', FALSE, FALSE),
-('Computer Science', TRUE, TRUE),
-('Art', FALSE, TRUE),
-('Music', FALSE, TRUE),
-('Foreign Language', FALSE, TRUE),
-('Economics', FALSE, FALSE),
-('Social Studies', FALSE, FALSE),
-('Technology', TRUE, TRUE),
-('Health Education', FALSE, FALSE);
+INSERT INTO subjects (name, requires_special_room) VALUES
+('Mathematics', FALSE),
+('Physics', TRUE),
+('Chemistry', TRUE),
+('Physical Education', TRUE),
+('Ukrainian Literature', FALSE),
+('English Language', FALSE),
+('History', FALSE),
+('Biology', FALSE),
+('Geography', FALSE),
+('Computer Science', TRUE),
+('Art', FALSE),
+('Music', FALSE),
+('Foreign Language', FALSE),
+('Economics', FALSE),
+('Social Studies', FALSE),
+('Technology', TRUE),
+('Health Education', FALSE);
 
 INSERT INTO classrooms (room_number, is_special, capacity) VALUES
 ('101', FALSE, 30), ('102', FALSE, 30), ('103', FALSE, 30), ('104', FALSE, 30),
@@ -287,30 +285,30 @@ INSERT INTO students (first_name, last_name, class_id) VALUES
 ('Bohdan', 'Melnyk', 4),
 ('Olena', 'Koval', 4);
 
-INSERT INTO class_subjects (class_id, subject_id, lessons_per_week, uses_groups) VALUES
+INSERT INTO class_subjects (class_id, subject_id, lessons_per_week) VALUES
 -- Class 10a (with Mathematics)
-(1, 1, 5, FALSE), (1, 2, 3, FALSE), (1, 3, 3, FALSE), (1, 4, 2, FALSE),
-(1, 5, 4, FALSE), (1, 6, 3, FALSE), (1, 7, 2, FALSE), (1, 8, 2, FALSE),
-(1, 9, 2, FALSE), (1, 10, 2, FALSE), (1, 11, 1, FALSE), (1, 12, 1, FALSE),
-(1, 13, 3, FALSE), (1, 14, 1, FALSE), (1, 15, 1, FALSE), (1, 16, 2, FALSE),
-(1, 17, 1, FALSE),
+(1, 1, 5), (1, 2, 3), (1, 3, 3), (1, 4, 2),
+(1, 5, 4), (1, 6, 3), (1, 7, 2), (1, 8, 2),
+(1, 9, 2), (1, 10, 2), (1, 11, 1), (1, 12, 1),
+(1, 13, 3), (1, 14, 1), (1, 15, 1), (1, 16, 2),
+(1, 17, 1),
 -- Class 10b (NO Mathematics)
-(2, 2, 4, FALSE), (2, 3, 3, FALSE), (2, 4, 2, FALSE), (2, 5, 4, FALSE),
-(2, 6, 4, FALSE), (2, 7, 3, FALSE), (2, 8, 3, FALSE), (2, 9, 2, FALSE),
-(2, 10, 2, FALSE), (2, 11, 1, FALSE), (2, 12, 1, FALSE), (2, 13, 3, FALSE),
-(2, 14, 2, FALSE), (2, 15, 2, FALSE), (2, 16, 2, FALSE), (2, 17, 1, FALSE),
+(2, 2, 4), (2, 3, 3), (2, 4, 2), (2, 5, 4),
+(2, 6, 4), (2, 7, 3), (2, 8, 3), (2, 9, 2),
+(2, 10, 2), (2, 11, 1), (2, 12, 1), (2, 13, 3),
+(2, 14, 2), (2, 15, 2), (2, 16, 2), (2, 17, 1),
 -- Class 10c (with Mathematics)
-(3, 1, 4, FALSE), (3, 2, 3, FALSE), (3, 3, 3, FALSE), (3, 4, 2, FALSE),
-(3, 5, 3, FALSE), (3, 6, 3, FALSE), (3, 7, 2, FALSE), (3, 8, 2, FALSE),
-(3, 9, 2, FALSE), (3, 10, 2, FALSE), (3, 11, 1, FALSE), (3, 12, 1, FALSE),
-(3, 13, 3, FALSE), (3, 14, 1, FALSE), (3, 15, 1, FALSE), (3, 16, 2, FALSE),
-(3, 17, 1, FALSE),
+(3, 1, 4), (3, 2, 3), (3, 3, 3), (3, 4, 2),
+(3, 5, 3), (3, 6, 3), (3, 7, 2), (3, 8, 2),
+(3, 9, 2), (3, 10, 2), (3, 11, 1), (3, 12, 1),
+(3, 13, 3), (3, 14, 1), (3, 15, 1), (3, 16, 2),
+(3, 17, 1),
 -- Class 10d (with Mathematics)
-(4, 1, 4, FALSE), (4, 2, 3, FALSE), (4, 3, 3, FALSE), (4, 4, 2, FALSE),
-(4, 5, 3, FALSE), (4, 6, 3, FALSE), (4, 7, 2, FALSE), (4, 8, 2, FALSE),
-(4, 9, 2, FALSE), (4, 10, 2, FALSE), (4, 11, 1, FALSE), (4, 12, 1, FALSE),
-(4, 13, 3, FALSE), (4, 14, 1, FALSE), (4, 15, 1, FALSE), (4, 16, 2, FALSE),
-(4, 17, 1, FALSE);
+(4, 1, 4), (4, 2, 3), (4, 3, 3), (4, 4, 2),
+(4, 5, 3), (4, 6, 3), (4, 7, 2), (4, 8, 2),
+(4, 9, 2), (4, 10, 2), (4, 11, 1), (4, 12, 1),
+(4, 13, 3), (4, 14, 1), (4, 15, 1), (4, 16, 2),
+(4, 17, 1);
 
 INSERT INTO special_classrooms (subject_id, classroom_id) VALUES
 (2, 9),  -- Physics -> Lab-1

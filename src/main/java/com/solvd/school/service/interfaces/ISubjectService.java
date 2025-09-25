@@ -9,4 +9,5 @@ public interface ISubjectService {
     List<Subject> getSubjectsForClass(int classId);
     int getLessonsPerWeekForClass(int classId, int subjectId);
     boolean requiresSpecialRoom(int subjectId);
+    Integer getRandomSubjectIdForClass(int classId);
 }
