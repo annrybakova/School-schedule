@@ -9,12 +9,12 @@ import com.solvd.school.util.ScheduleConstants;
 public class RandomDailyScheduleGenerator implements IDailyScheduleGenerator {
 
     @Override
-    public DailySchedule getDailyScheduleFor(int classId) {
+    public DailySchedule getDailyScheduleFor(int classId, int dayNumber) {
         DailySchedule dailySchedule = new DailySchedule();
 
         ILessonGenerator lessonGenerator = new RandomLessonGenerator();
         for(int i = 0; i < ScheduleConstants.DAILY_LESSONS_NUMBER; ++i) {
-            dailySchedule.addLesson(lessonGenerator.getLessonFor(classId));
+            dailySchedule.addLesson(lessonGenerator.getLessonFor(classId, i + 1, dayNumber));
         }
 
         return dailySchedule;
