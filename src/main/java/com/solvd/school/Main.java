@@ -1,10 +1,6 @@
 package com.solvd.school;
 
-import com.solvd.school.dao.mybatisimpl.ClassDAO;
-import com.solvd.school.dao.mybatisimpl.ClassroomsDAO;
-import com.solvd.school.dao.mybatisimpl.LessonDAO;
-import com.solvd.school.dao.mybatisimpl.SubjectDAO;
-import com.solvd.school.dao.mybatisimpl.TeacherDAO;
+import com.solvd.school.dao.mybatisimpl.*;
 import com.solvd.school.generator.weeklyScheduleGenerator.impl.RandomWeeklyScheduleGenerator;
 import com.solvd.school.generator.weeklyScheduleGenerator.interfaces.IWeeklyScheduleGenerator;
 import com.solvd.school.model.Lesson;
@@ -23,7 +19,9 @@ import com.solvd.school.service.interfaces.ILessonService;
 import com.solvd.school.service.interfaces.ISubjectService;
 import com.solvd.school.service.interfaces.ITeacherService;
 import com.solvd.school.service.interfaces.IValidationService;
+import com.solvd.school.util.MyBatisUtil;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,7 +33,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<SchoolClass> allClasses = getAllClasses();
+        SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
+
+        LessonDAO lessonDAO = new LessonDAO(sqlSessionFactory);
+        TeacherDAO teacherDAO = new TeacherDAO(sqlSessionFactory);
+        SubjectDAO subjectDAO = new SubjectDAO(sqlSessionFactory);
+        ClassSubjectDAO classSubjectDAO = new ClassSubjectDAO(sqlSessionFactory);
+        ClassroomsDAO classroomDAO = new ClassroomsDAO(sqlSessionFactory);
+        ClassDAO classDAO = new ClassDAO(sqlSessionFactory);
+        SpecialClassroomDAO specialClassroomDAO = new SpecialClassroomDAO(sqlSessionFactory);
+
+        // Service Initialization
+        ILessonService lessonService = new LessonServiceImpl(lessonDAO);
+        ITeacherService teacherService = new TeacherServiceImpl(teacherDAO, lessonDAO);
+        ISubjectService subjectService = new SubjectServiceImpl(subjectDAO, classSubjectDAO);
+        IClassroomService classroomService = new ClassroomServiceImpl(classroomDAO, lessonDAO, specialClassroomDAO);
+        IClassService classService = new ClassServiceImpl(classDAO);
+
+        IValidationService validationService = new ValidationServiceImpl(
+                teacherService, subjectService, classroomService, classService
+        );
+
+         List<SchoolClass> allClasses = getAllClasses(classService);
 
         // for (SchoolClass schoolClass : allClasses) {
         // System.out.println(schoolClass);
@@ -55,8 +74,8 @@ public class Main {
         }
     }
 
-    private static List<SchoolClass> getAllClasses() {
-        IClassService classService = new ClassServiceImpl();
+    private static List<SchoolClass> getAllClasses(IClassService classService) {
+        // IClassService classService = new ClassServiceImpl();
         return classService.getAllClasses();
     }
 

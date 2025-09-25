@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomLessonGenerator implements ILessonGenerator {
 
     @Override
-    public Lesson getLessonFor(int classId) {
+    public Lesson getLessonFor(int classId, int lessonNumber, int dayNumber) {
         IClassSubjectDAO classSubjectDAO = new ClassSubjectDAO(MyBatisUtil.getSqlSessionFactory());
         int subjectId = classSubjectDAO.getRandomSubjectIdForClass(classId);
 
@@ -26,9 +26,6 @@ public class RandomLessonGenerator implements ILessonGenerator {
         IClassroomsDAO classroomsDAO = new ClassroomsDAO(MyBatisUtil.getSqlSessionFactory());
         int classroomId = classroomsDAO.getRandomClassroomId(subjectId);
 
-        int day = ThreadLocalRandom.current().nextInt(1, 6);
-        int lessonNum = ThreadLocalRandom.current().nextInt(1, ScheduleConstants.DAILY_LESSONS_NUMBER + 1);
-
-        return new Lesson(classId, subjectId, teacherId, classroomId, day, lessonNum);
+        return new Lesson(classId, subjectId, teacherId, classroomId, dayNumber, lessonNumber);
     }
 }

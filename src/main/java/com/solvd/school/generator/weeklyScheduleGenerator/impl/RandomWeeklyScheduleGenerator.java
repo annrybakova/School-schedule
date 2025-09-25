@@ -13,7 +13,7 @@ public class RandomWeeklyScheduleGenerator implements IWeeklyScheduleGenerator {
 
         IDailyScheduleGenerator dailyScheduleGenerator = new RandomDailyScheduleGenerator();
         for(int i = 0; i < ScheduleConstants.DAYS_FOR_STUDYING; ++i) {
-            weeklySchedule.addDailySchedule(dailyScheduleGenerator.getDailyScheduleFor(classId));
+            weeklySchedule.addDailySchedule(dailyScheduleGenerator.getDailyScheduleFor(classId, i + 1));
         }
 
         return weeklySchedule;
