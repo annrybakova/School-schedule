@@ -37,7 +37,7 @@
         DELETE FROM schedule_generation_log WHERE id = #{id}
     </delete>
 
-    <select id="getLastLog" resultMap="LogResult">
+    <select id="getLastLog" resultMap="GenLogResult">
         SELECT * FROM schedule_generation_log 
         ORDER BY timestamp 
         DESC 

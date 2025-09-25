@@ -49,5 +49,4 @@ public class ScheduleGenerationLogDAO implements IScheduleGenerationLogDAO {
                 return s.selectOne(NS + ".getLastLog");
         }
     }
-    
 }
