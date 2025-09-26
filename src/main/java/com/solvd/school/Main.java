@@ -47,7 +47,7 @@ public class Main {
         ILessonService lessonService = new LessonServiceImpl(lessonDAO);
         ITeacherService teacherService = new TeacherServiceImpl(teacherDAO, lessonDAO);
         ISubjectService subjectService = new SubjectServiceImpl();
-        IClassroomService classroomService = new ClassroomServiceImpl(classroomDAO, lessonDAO, specialClassroomDAO);
+        IClassroomService classroomService = new ClassroomServiceImpl();
         IClassService classService = new ClassServiceImpl(classDAO);
 
         IValidationService validationService = new ValidationServiceImpl(
@@ -75,7 +75,6 @@ public class Main {
     }
 
     private static List<SchoolClass> getAllClasses(IClassService classService) {
-        // IClassService classService = new ClassServiceImpl();
         return classService.getAllClasses();
     }
 

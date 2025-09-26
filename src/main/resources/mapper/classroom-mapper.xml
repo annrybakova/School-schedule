@@ -11,6 +11,10 @@
         SELECT id, room_number, is_special, capacity FROM classrooms WHERE id = #{id}
     </select>
 
+    <select id="getCommonClassroom" resultMap="ClassroomResult">
+        SELECT id, room_number, is_special, capacity FROM classrooms WHERE is_special = FALSE ORDER BY RAND() LIMIT 1;
+    </select>
+
     <select id="getRandomClassroomId" parameterType="int" resultType="Integer">
         SELECT c.id
         FROM classrooms c

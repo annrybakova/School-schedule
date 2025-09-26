@@ -8,5 +8,6 @@ public interface IClassroomService {
     List<Classroom> getAllClassrooms();
     List<Classroom> getAvailableClassrooms(int dayOfWeek, int lessonNumber);
     boolean isClassroomAvailable(int classroomId, int dayOfWeek, int lessonNumber);
+    Classroom getCommonClassroomForSubject(int subject);
     Classroom getSpecialClassroomForSubject(int subjectId);
 }
