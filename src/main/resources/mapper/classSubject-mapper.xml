@@ -60,4 +60,10 @@
     <delete id="delete" parameterType="int">
         DELETE FROM class_subjects WHERE id = #{id}
     </delete>
+
+    <select id="getLessonsPerWeek" parameterType="map" resultType="int">
+        SELECT cs.lessons_per_week
+        FROM class_subjects cs
+        WHERE cs.class_id = #{classId} AND cs.subject_id = #{subjectId}
+    </select>
 </mapper>
