@@ -1,20 +1,11 @@
 package com.solvd.school.service.impl;
 
-import com.solvd.school.dao.interfaces.IClassDAO;
 import com.solvd.school.dao.interfaces.ILessonsDAO;
-import com.solvd.school.dao.mybatisimpl.ClassDAO;
-import com.solvd.school.dao.mybatisimpl.LessonDAO;
-import com.solvd.school.generator.lessonGenerator.impl.RandomLessonGenerator;
-import com.solvd.school.generator.weeklyScheduleGenerator.impl.RandomWeeklyScheduleGenerator;
-import com.solvd.school.generator.weeklyScheduleGenerator.interfaces.IWeeklyScheduleGenerator;
 import com.solvd.school.model.Lesson;
-import com.solvd.school.model.SchoolClass;
 import com.solvd.school.service.interfaces.ILessonService;
-import com.solvd.school.util.MyBatisUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LessonServiceImpl implements ILessonService {

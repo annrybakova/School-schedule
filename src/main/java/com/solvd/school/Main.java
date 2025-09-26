@@ -1,8 +1,8 @@
 package com.solvd.school;
 
 import com.solvd.school.dao.mybatisimpl.*;
-import com.solvd.school.generator.weeklyScheduleGenerator.impl.RandomWeeklyScheduleGenerator;
-import com.solvd.school.generator.weeklyScheduleGenerator.interfaces.IWeeklyScheduleGenerator;
+import com.solvd.school.generator.impl.RandomWeeklyScheduleGenerator;
+import com.solvd.school.generator.interfaces.IWeeklyScheduleGenerator;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.model.SchoolClass;
 import com.solvd.school.model.schedule.DailySchedule;

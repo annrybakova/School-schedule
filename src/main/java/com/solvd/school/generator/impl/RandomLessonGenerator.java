@@ -1,10 +1,10 @@
-package com.solvd.school.generator.lessonGenerator.impl;
+package com.solvd.school.generator.impl;
 
 import com.solvd.school.dao.interfaces.IClassSubjectDAO;
 import com.solvd.school.dao.interfaces.ITeachersDAO;
 import com.solvd.school.dao.mybatisimpl.ClassSubjectDAO;
 import com.solvd.school.dao.mybatisimpl.TeacherDAO;
-import com.solvd.school.generator.lessonGenerator.interfaces.ILessonGenerator;
+import com.solvd.school.generator.interfaces.ILessonGenerator;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.service.impl.ClassroomServiceImpl;
 import com.solvd.school.service.impl.SubjectServiceImpl;

@@ -1,4 +1,4 @@
-package com.solvd.school.generator.weeklyScheduleGenerator.interfaces;
+package com.solvd.school.generator.interfaces;
 
 import com.solvd.school.model.schedule.WeeklySchedule;
 

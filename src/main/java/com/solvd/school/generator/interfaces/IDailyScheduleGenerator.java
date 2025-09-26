@@ -1,4 +1,4 @@
-package com.solvd.school.generator.dailyScheduleGenerator.interfaces;
+package com.solvd.school.generator.interfaces;
 
 import com.solvd.school.model.schedule.DailySchedule;
 

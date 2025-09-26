@@ -1,8 +1,7 @@
-package com.solvd.school.generator.weeklyScheduleGenerator.impl;
+package com.solvd.school.generator.impl;
 
-import com.solvd.school.generator.dailyScheduleGenerator.impl.RandomDailyScheduleGenerator;
-import com.solvd.school.generator.dailyScheduleGenerator.interfaces.IDailyScheduleGenerator;
-import com.solvd.school.generator.weeklyScheduleGenerator.interfaces.IWeeklyScheduleGenerator;
+import com.solvd.school.generator.interfaces.IDailyScheduleGenerator;
+import com.solvd.school.generator.interfaces.IWeeklyScheduleGenerator;
 import com.solvd.school.model.schedule.WeeklySchedule;
 import com.solvd.school.util.ScheduleConstants;
 
