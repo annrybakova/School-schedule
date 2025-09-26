@@ -62,4 +62,11 @@ public class TeacherServiceImpl implements ITeacherService {
         List<Lesson> teacherLessons = lessonsDAO.getByTeacherAndDay(teacherId, dayOfWeek);
         return teacherLessons.size();
     }
+
+    @Override
+    public boolean isTeacherOverloaded(int teacherId, int dayOfWeek) {
+        Teacher teacher = getTeacherById(teacherId);
+        int actualLessons = getTeacherLessonsCount(teacherId, dayOfWeek);
+        return actualLessons > teacher.getMaxLessonsPerDay();
+    }
 }

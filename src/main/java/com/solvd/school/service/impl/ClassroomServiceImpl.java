@@ -82,6 +82,28 @@ public class ClassroomServiceImpl implements IClassroomService {
         return classroomsDAO.getById(classroomId);
     }
 
+    @Override
+    public boolean isSubjectRoomConstraintViolated(int subjectId, int dayOfWeek) {
+        // We only test physics (2) and chemistry (3)
+        if (subjectId == 2 || subjectId == 3) {
+            // We get all the lessons for the day and filter by subject
+            List<Lesson> allLessonsOfDay = lessonsDAO.getByClassAndDay(0, dayOfWeek); // 0 = all classes
+            List<Lesson> subjectLessons = allLessonsOfDay.stream()
+                    .filter(lesson -> lesson.getSubjectId() == subjectId)
+                    .collect(Collectors.toList());
+
+            if (subjectLessons.size() > 1) {
+                long uniqueRooms = subjectLessons.stream()
+                        .map(Lesson::getClassroomId)
+                        .distinct()
+                        .count();
+                return uniqueRooms > 1; // There should only be 1 classroom.
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean hasEnoughCapacity(int classroomId, int studentCount) {
         Classroom classroom = classroomsDAO.getById(classroomId);
         if (classroom == null) {

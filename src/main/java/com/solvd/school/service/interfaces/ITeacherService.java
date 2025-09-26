@@ -11,4 +11,5 @@ public interface ITeacherService {
     List<Lesson> getTeacherSchedule(int teacherId);
     boolean isTeacherAvailable(int teacherId, int dayOfWeek, int lessonNumber);
     int getTeacherLessonsCount(int teacherId, int dayOfWeek);
+    boolean isTeacherOverloaded(int teacherId, int dayOfWeek);
 }

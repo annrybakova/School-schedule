@@ -1,6 +1,7 @@
 package com.solvd.school.service.impl;
 
 import com.solvd.school.model.Lesson;
+import com.solvd.school.model.Teacher;
 import com.solvd.school.service.interfaces.IClassService;
 import com.solvd.school.service.interfaces.IClassroomService;
 import com.solvd.school.service.interfaces.ISubjectService;
@@ -9,12 +10,7 @@ import com.solvd.school.service.interfaces.IValidationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ValidationServiceImpl implements IValidationService {
@@ -44,7 +40,9 @@ public class ValidationServiceImpl implements IValidationService {
         boolean valid = validateNoGaps(lessons) &&
                 validateTeacherConstraints(lessons) &&
                 validateClassroomConstraints(lessons) &&
-                validateSubjectConstraints(lessons);
+                validateSubjectConstraints(lessons) &&
+                validateClassSubjectRules(lessons) &&
+                validateSpecialRoomConstraints(lessons);
 
         if (!valid) {
             logger.warn("Schedule validation failed with errors: {}", validationErrors);
@@ -53,55 +51,143 @@ public class ValidationServiceImpl implements IValidationService {
         return valid;
     }
 
+    // Сhecking rules for classes and subjects
+    private boolean validateClassSubjectRules(List<Lesson> lessons) {
+        boolean valid = true;
+
+        for (Lesson lesson : lessons) {
+            int classId = lesson.getClassId();
+            int subjectId = lesson.getSubjectId();
+            String className = getClassName(classId);
+
+            // 10b (id=2) and 10d (id=4) should not have Mathematics (id=1)
+            if ((classId == 2 || classId == 4) && subjectId == 1) {
+                validationErrors.add("Class " + className + " should not have Mathematics");
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    // Сheck the limit of 1 room for physics/chemistry
+    private boolean validateSpecialRoomConstraints(List<Lesson> lessons) {
+        boolean valid = true;
+        Map<Integer, Map<Integer, Set<Integer>>> subjectRoomsPerDay = new HashMap<>();
+
+        for (Lesson lesson : lessons) {
+            int subjectId = lesson.getSubjectId();
+            int dayOfWeek = lesson.getDayOfWeek();
+            int classroomId = lesson.getClassroomId();
+
+            // Сheck only physics (id=2) and chemistry (id=3)
+            if (subjectId == 2 || subjectId == 3) {
+                subjectRoomsPerDay
+                        .computeIfAbsent(subjectId, k -> new HashMap<>())
+                        .computeIfAbsent(dayOfWeek, k -> new HashSet<>())
+                        .add(classroomId);
+            }
+        }
+
+        // Checking no more than 1 office per day for special items
+        for (Map.Entry<Integer, Map<Integer, Set<Integer>>> subjectEntry : subjectRoomsPerDay.entrySet()) {
+            int subjectId = subjectEntry.getKey();
+            String subjectName = subjectService.getSubjectById(subjectId).getName();
+
+            for (Map.Entry<Integer, Set<Integer>> dayEntry : subjectEntry.getValue().entrySet()) {
+                int day = dayEntry.getKey();
+                int roomCount = dayEntry.getValue().size();
+
+                if (roomCount > 1) {
+                    validationErrors.add(subjectName + " should use only 1 classroom per day, but uses " + roomCount + " on day " + day);
+                    valid = false;
+                }
+            }
+        }
+
+        return valid;
+    }
+
+    // Helper method for getting the class name
+    private String getClassName(int classId) {
+        return switch (classId) {
+            case 1 -> "10a";
+            case 2 -> "10b";
+            case 3 -> "10c";
+            case 4 -> "10d";
+            default -> "Unknown";
+        };
+    }
+
     @Override
     public boolean validateNoGaps(List<Lesson> lessons) {
-        // Implementation for checking no gaps in schedule
         if (lessons == null || lessons.isEmpty()) {
             return true;
         }
 
-        lessons.sort(Comparator.comparingInt(Lesson::getLessonNumber));
+        Map<Integer, List<Lesson>> lessonsByClass = lessons.stream()
+                .collect(Collectors.groupingBy(Lesson::getClassId));
 
-        int firstLesson = lessons.get(0).getLessonNumber();
-        int lastLesson = lessons.get(lessons.size() - 1).getLessonNumber();
+        for (List<Lesson> classLessons : lessonsByClass.values()) {
+            Map<Integer, List<Lesson>> lessonsByDay = classLessons.stream()
+                    .collect(Collectors.groupingBy(Lesson::getDayOfWeek));
 
-        Set<Integer> scheduledNumbers = lessons.stream()
-                .map(Lesson::getLessonNumber)
-                .collect(Collectors.toSet());
+            for (List<Lesson> dayLessons : lessonsByDay.values()) {
+                dayLessons.sort(Comparator.comparingInt(Lesson::getLessonNumber));
 
-        for (int i = firstLesson; i <= lastLesson; i++) {
-            if (!scheduledNumbers.contains(i)) {
-                validationErrors.add("Gap detected in lessons between "
-                        + firstLesson + " and " + lastLesson);
-                return false;
+                Set<Integer> scheduledNumbers = dayLessons.stream()
+                        .map(Lesson::getLessonNumber)
+                        .collect(Collectors.toSet());
+
+                int first = dayLessons.get(0).getLessonNumber();
+                int last = dayLessons.get(dayLessons.size() - 1).getLessonNumber();
+
+                for (int i = first; i <= last; i++) {
+                    if (!scheduledNumbers.contains(i)) {
+                        validationErrors.add("Gap detected in lessons between " + first + " and " + last);
+                        return false;
+                    }
+                }
             }
         }
         return true;
-
     }
 
     @Override
     public boolean validateTeacherConstraints(List<Lesson> lessons) {
         boolean valid = true;
+        Map<Integer, Map<Integer, Integer>> teacherDailyLoad = new HashMap<>();
 
         for (Lesson lesson : lessons) {
-            int teacherId = lesson.getTeacher().getId();
+            int teacherId = lesson.getTeacherId();
             int day = lesson.getDayOfWeek();
             int lessonNum = lesson.getLessonNumber();
 
             // Rule 1: teacher availability
             if (!teacherService.isTeacherAvailable(teacherId, day, lessonNum)) {
-                validationErrors.add("Teacher " + lesson.getTeacher().getLastName() +
-                        " is not available on day " + day + " lesson " + lessonNum);
+                validationErrors.add("Teacher " + teacherId + " is not available on day " + day + " lesson " + lessonNum);
                 valid = false;
             }
 
-            // Rule 2: teacher daily load - max 5 lessons
-            int lessonsCount = teacherService.getTeacherLessonsCount(teacherId, day);
-            if (lessonsCount > 5) {
-                validationErrors.add("Teacher " + lesson.getTeacher().getLastName() +
-                        " exceeds daily lesson limit (" + lessonsCount + ")");
-                valid = false;
+            // Rule 2: teacher daily load
+            teacherDailyLoad
+                    .computeIfAbsent(teacherId, k -> new HashMap<>())
+                    .merge(day, 1, Integer::sum);
+        }
+
+        // Load check after calculation
+        for (Map.Entry<Integer, Map<Integer, Integer>> teacherEntry : teacherDailyLoad.entrySet()) {
+            int teacherId = teacherEntry.getKey();
+            Teacher teacher = teacherService.getTeacherById(teacherId);
+
+            for (Map.Entry<Integer, Integer> dayEntry : teacherEntry.getValue().entrySet()) {
+                int day = dayEntry.getKey();
+                int load = dayEntry.getValue();
+
+                if (load > teacher.getMaxLessonsPerDay()) {
+                    validationErrors.add("Teacher " + teacher.getLastName() +
+                            " exceeds daily limit (" + load + " > " + teacher.getMaxLessonsPerDay() + ") on day " + day);
+                    valid = false;
+                }
             }
         }
 
@@ -111,25 +197,29 @@ public class ValidationServiceImpl implements IValidationService {
     @Override
     public boolean validateClassroomConstraints(List<Lesson> lessons) {
         boolean valid = true;
-        // Check classroom capacity, special rooms, etc.
+
         for (Lesson lesson : lessons) {
-            int classId = lesson.getSchoolClass().getId();
-            int subjectId = lesson.getSubject().getId();
-            int classroomId = lesson.getClassroom().getId();
+            int classId = lesson.getClassId();
+            int subjectId = lesson.getSubjectId();
+            int classroomId = lesson.getClassroomId();
 
-            int studentCount = classService.getClassById(classId).getStudentCount();
-            int roomCapacity = classroomService.getClassroomById(classroomId).getCapacity();
-
-            if (studentCount > roomCapacity) {
-                validationErrors.add("Class " + classId + " has " + studentCount +
-                        " students, but classroom " + classroomId + " capacity is " + roomCapacity);
+            // Rule 1: classroom availability
+            if (!classroomService.isClassroomAvailable(classroomId, lesson.getDayOfWeek(), lesson.getLessonNumber())) {
+                validationErrors.add("Classroom " + classroomId + " is not available at this time");
                 valid = false;
             }
-            // Rule 2: Check special room requirement
+
+            // Rule 2: capacity check
+            int studentCount = classService.getClassById(classId).getStudentCount();
+            if (!classroomService.hasEnoughCapacity(classroomId, studentCount)) {
+                validationErrors.add("Classroom " + classroomId + " capacity exceeded for class " + classId);
+                valid = false;
+            }
+
+            // Rule 3: special room requirement
             if (subjectService.requiresSpecialRoom(subjectId) &&
                     !classroomService.getClassroomById(classroomId).isSpecial()) {
-                validationErrors.add("Subject " + subjectService.getSubjectById(subjectId).getName() +
-                        " requires a special classroom, but room " + classroomId + " is not special");
+                validationErrors.add("Subject requires special classroom, but room " + classroomId + " is not special");
                 valid = false;
             }
         }
@@ -139,25 +229,38 @@ public class ValidationServiceImpl implements IValidationService {
     @Override
     public boolean validateSubjectConstraints(List<Lesson> lessons) {
         boolean valid = true;
-        Map<Integer, Integer> lessonsPerDay = new HashMap<>();
+        Map<Integer, Map<Integer, Integer>> classDailyLessons = new HashMap<>();
+
         for (Lesson lesson : lessons) {
-            int subjectId = lesson.getSubject().getId();
-            String subjectName = subjectService.getSubjectById(subjectId).getName();
+            int subjectId = lesson.getSubjectId();
+            int classId = lesson.getClassId();
             int day = lesson.getDayOfWeek();
+            String subjectName = subjectService.getSubjectById(subjectId).getName();
 
             // Rule 1: PE not first lesson
-            if (subjectName.equalsIgnoreCase("Physical Education") &&
-                    lesson.getLessonNumber() == 1) {
-                validationErrors.add("Physical Education cannot be scheduled as the first lesson on day " + day);
+            if (subjectName.equalsIgnoreCase("Physical Education") && lesson.getLessonNumber() == 1) {
+                validationErrors.add("PE cannot be first lesson for class " + classId + " on day " + day);
                 valid = false;
             }
 
-            // Rule 2: Max 6 lessons per day
-            lessonsPerDay.put(day, lessonsPerDay.getOrDefault(day, 0) + 1);
-            if (lessonsPerDay.get(day) > 6) {
-                validationErrors.add("Class " + lesson.getSchoolClass().getName() +
-                        " exceeds max 6 lessons on day " + day);
-                valid = false;
+            // Rule 2: Max 6 lessons per day per class
+            classDailyLessons
+                    .computeIfAbsent(classId, k -> new HashMap<>())
+                    .merge(day, 1, Integer::sum);
+        }
+
+        // Checking the maximum number of lessons
+        for (Map.Entry<Integer, Map<Integer, Integer>> classEntry : classDailyLessons.entrySet()) {
+            int classId = classEntry.getKey();
+
+            for (Map.Entry<Integer, Integer> dayEntry : classEntry.getValue().entrySet()) {
+                int day = dayEntry.getKey();
+                int lessonCount = dayEntry.getValue();
+
+                if (lessonCount > 6) {
+                    validationErrors.add("Class " + classId + " exceeds 6 lessons limit on day " + day + " (" + lessonCount + " lessons)");
+                    valid = false;
+                }
             }
         }
 

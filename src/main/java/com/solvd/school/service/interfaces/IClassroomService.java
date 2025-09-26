@@ -10,4 +10,8 @@ public interface IClassroomService {
     boolean isClassroomAvailable(int classroomId, int dayOfWeek, int lessonNumber);
     Classroom getCommonClassroomForSubject(int subject);
     Classroom getSpecialClassroomForSubject(int subjectId);
+
+    boolean isSubjectRoomConstraintViolated(int subjectId, int dayOfWeek);
+
+    boolean hasEnoughCapacity(int classroomId, int studentCount);
 }
