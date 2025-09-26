@@ -2,9 +2,13 @@ package com.solvd.school.service.impl;
 
 import com.solvd.school.dao.interfaces.ISubjectsDAO;
 import com.solvd.school.dao.interfaces.IClassSubjectDAO;
+import com.solvd.school.dao.mybatisimpl.ClassSubjectDAO;
+import com.solvd.school.dao.mybatisimpl.SubjectDAO;
 import com.solvd.school.model.ClassSubject;
 import com.solvd.school.model.Subject;
 import com.solvd.school.service.interfaces.ISubjectService;
+import com.solvd.school.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,13 +17,16 @@ import java.util.stream.Collectors;
 
 public class SubjectServiceImpl implements ISubjectService {
     private static final Logger logger = LogManager.getLogger(SubjectServiceImpl.class);
-    private final ISubjectsDAO subjectsDAO;
-    private final IClassSubjectDAO classSubjectDAO;
+    private static final ISubjectsDAO subjectsDAO;
+    private static final IClassSubjectDAO classSubjectDAO;
 
-    public SubjectServiceImpl(ISubjectsDAO subjectsDAO, IClassSubjectDAO classSubjectDAO) {
-        this.subjectsDAO = subjectsDAO;
-        this.classSubjectDAO = classSubjectDAO;
+    static {
+        SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
+        subjectsDAO = new SubjectDAO(sqlSessionFactory);
+        classSubjectDAO = new ClassSubjectDAO(sqlSessionFactory);
     }
+
+    public SubjectServiceImpl() {}
 
     @Override
     public Subject getSubjectById(int id) {

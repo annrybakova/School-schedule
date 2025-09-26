@@ -46,7 +46,7 @@ public class Main {
         // Service Initialization
         ILessonService lessonService = new LessonServiceImpl(lessonDAO);
         ITeacherService teacherService = new TeacherServiceImpl(teacherDAO, lessonDAO);
-        ISubjectService subjectService = new SubjectServiceImpl(subjectDAO, classSubjectDAO);
+        ISubjectService subjectService = new SubjectServiceImpl();
         IClassroomService classroomService = new ClassroomServiceImpl(classroomDAO, lessonDAO, specialClassroomDAO);
         IClassService classService = new ClassServiceImpl(classDAO);
 
