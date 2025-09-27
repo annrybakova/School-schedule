@@ -56,9 +56,11 @@ public class GeneticScheduler implements IScheduler {
     }
 
     private SchoolClassesSchedule select(List<SchoolClassesSchedule> population) {
+        return null;
     }
 
     private SchoolClassesSchedule crossover(SchoolClassesSchedule parent1, SchoolClassesSchedule parent2) {
+        return parent1;
     }
 
     private void mutate(SchoolClassesSchedule child) {

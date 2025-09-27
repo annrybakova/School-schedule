@@ -50,9 +50,7 @@ public class Main {
         IClassroomService classroomService = new ClassroomServiceImpl();
         IClassService classService = new ClassServiceImpl(classDAO);
 
-        IValidationService validationService = new ValidationServiceImpl(
-                teacherService, subjectService, classroomService, classService
-        );
+        IValidationService validationService = new ValidationServiceImpl();
 
          List<SchoolClass> allClasses = getAllClasses(classService);
 
