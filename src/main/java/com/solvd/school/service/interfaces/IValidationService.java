@@ -1,6 +1,8 @@
 package com.solvd.school.service.interfaces;
 
 import com.solvd.school.model.Lesson;
+import com.solvd.school.model.schedule.SchoolClassesSchedule;
+
 import java.util.List;
 
 public interface IValidationService {
@@ -15,4 +17,6 @@ public interface IValidationService {
     boolean validateSubjectConstraints(List<Lesson> lessons);
 
     List<String> getValidationErrors();
+
+    int fitness(SchoolClassesSchedule schedule);
 }

@@ -2,11 +2,13 @@ package com.solvd.school.service.impl;
 
 import com.solvd.school.model.Lesson;
 import com.solvd.school.model.Teacher;
+import com.solvd.school.model.schedule.SchoolClassesSchedule;
 import com.solvd.school.service.interfaces.IClassService;
 import com.solvd.school.service.interfaces.IClassroomService;
 import com.solvd.school.service.interfaces.ISubjectService;
 import com.solvd.school.service.interfaces.ITeacherService;
 import com.solvd.school.service.interfaces.IValidationService;
+import com.solvd.school.util.GeneticAlgorithmConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +23,13 @@ public class ValidationServiceImpl implements IValidationService {
     private final ISubjectService subjectService;
     private final IClassroomService classroomService;
     private final IClassService classService;
+
+    @Override
+    public int fitness(SchoolClassesSchedule schedule) {
+        int score = GeneticAlgorithmConstants.PERFECT_MATCHING_SCHEDULE_SCORE;
+
+        return score;
+    }
 
     public ValidationServiceImpl(
             ITeacherService teacherService,

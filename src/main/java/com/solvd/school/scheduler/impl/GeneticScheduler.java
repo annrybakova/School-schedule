@@ -8,6 +8,7 @@ import com.solvd.school.scheduler.interfaces.IScheduler;
 import com.solvd.school.util.GeneticAlgorithmConstants;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class GeneticScheduler implements IScheduler {
@@ -15,7 +16,25 @@ public class GeneticScheduler implements IScheduler {
     public SchoolClassesSchedule generateScheduleFor(List<SchoolClass> allClasses) {
         List<SchoolClassesSchedule> population = initPopulation(allClasses);
 
-        return null;
+        for(int i = 0; i < GeneticAlgorithmConstants.GENERATIONS_NUMBER; ++i) {
+            population.sort(Comparator.comparingInt(this::fitness).reversed());
+
+            if(fitness(population.get(0)) == GeneticAlgorithmConstants.PERFECT_MATCHING_SCHEDULE_SCORE) {
+                return population.get(0);
+            }
+
+            List<SchoolClassesSchedule> newPopulation = new ArrayList<>();
+
+            while(newPopulation.size() < population.size()) {
+                SchoolClassesSchedule parent1 = select(population);
+                SchoolClassesSchedule parent2 = select(population);
+                SchoolClassesSchedule child = crossover(parent1, parent2);
+                mutate(child);
+                newPopulation.add(child);
+            }
+        }
+
+        return population.get(0);
     }
 
     private List<SchoolClassesSchedule> initPopulation(List<SchoolClass> allClasses) {
@@ -28,5 +47,20 @@ public class GeneticScheduler implements IScheduler {
         }
 
         return population;
+    }
+
+    private int fitness(SchoolClassesSchedule schedule) {
+        int score = GeneticAlgorithmConstants.PERFECT_MATCHING_SCHEDULE_SCORE;
+
+        return score;
+    }
+
+    private SchoolClassesSchedule select(List<SchoolClassesSchedule> population) {
+    }
+
+    private SchoolClassesSchedule crossover(SchoolClassesSchedule parent1, SchoolClassesSchedule parent2) {
+    }
+
+    private void mutate(SchoolClassesSchedule child) {
     }
 }
