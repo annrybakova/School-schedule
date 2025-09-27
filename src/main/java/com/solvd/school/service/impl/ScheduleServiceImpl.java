@@ -2,10 +2,14 @@ package com.solvd.school.service.impl;
 
 import com.solvd.school.dao.interfaces.ILessonsDAO;
 import com.solvd.school.dao.interfaces.IScheduleGenerationLogDAO;
+import com.solvd.school.dao.mybatisimpl.LessonDAO;
+import com.solvd.school.dao.mybatisimpl.ScheduleGenerationLogDAO;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.model.ScheduleGenerationLog;
 import com.solvd.school.service.interfaces.IScheduleService;
 //import com.solvd.school.generator.BasicScheduleGenerator;
+import com.solvd.school.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,15 +17,12 @@ import java.util.List;
 
 public class ScheduleServiceImpl implements IScheduleService {
     private static final Logger logger = LogManager.getLogger(ScheduleServiceImpl.class);
-    private final ILessonsDAO lessonsDAO;
-    private final IScheduleGenerationLogDAO logDAO;
+    private final static SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
+    private static final ILessonsDAO lessonsDAO = new LessonDAO(sqlSessionFactory);
+    private static final IScheduleGenerationLogDAO logDAO = new ScheduleGenerationLogDAO(sqlSessionFactory);
     // private final BasicScheduleGenerator generator;
 
-    public ScheduleServiceImpl(ILessonsDAO lessonsDAO, IScheduleGenerationLogDAO logDAO) {
-        this.lessonsDAO = lessonsDAO;
-        this.logDAO = logDAO;
-        // this.generator = generator;
-    }
+    public ScheduleServiceImpl() {}
 
     @Override
     public void generateSchedule() {

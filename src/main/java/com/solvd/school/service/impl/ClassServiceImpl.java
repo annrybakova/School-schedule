@@ -1,8 +1,11 @@
 package com.solvd.school.service.impl;
 
 import com.solvd.school.dao.interfaces.IClassDAO;
+import com.solvd.school.dao.mybatisimpl.ClassDAO;
 import com.solvd.school.model.SchoolClass;
 import com.solvd.school.service.interfaces.IClassService;
+import com.solvd.school.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,11 +13,14 @@ import java.util.List;
 
 public class ClassServiceImpl implements IClassService {
     private static final Logger logger = LogManager.getLogger(ClassServiceImpl.class);
-    private final IClassDAO classDAO;
+    private static final IClassDAO classDAO;
 
-    public ClassServiceImpl(IClassDAO classDAO) {
-        this.classDAO = classDAO;
+    static {
+        SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
+        classDAO = new ClassDAO(sqlSessionFactory);
     }
+
+    public ClassServiceImpl() {}
 
     @Override
     public List<SchoolClass> getAllClasses() {

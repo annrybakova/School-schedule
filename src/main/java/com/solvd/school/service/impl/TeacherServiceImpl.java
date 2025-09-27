@@ -2,9 +2,13 @@ package com.solvd.school.service.impl;
 
 import com.solvd.school.dao.interfaces.ITeachersDAO;
 import com.solvd.school.dao.interfaces.ILessonsDAO;
+import com.solvd.school.dao.mybatisimpl.LessonDAO;
+import com.solvd.school.dao.mybatisimpl.TeacherDAO;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.model.Teacher;
 import com.solvd.school.service.interfaces.ITeacherService;
+import com.solvd.school.util.MyBatisUtil;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,13 +16,11 @@ import java.util.List;
 
 public class TeacherServiceImpl implements ITeacherService {
     private static final Logger logger = LogManager.getLogger(TeacherServiceImpl.class);
-    private final ITeachersDAO teachersDAO;
-    private final ILessonsDAO lessonsDAO;
+    private final static SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
+    private static final ILessonsDAO lessonsDAO = new LessonDAO(sqlSessionFactory);
+    private static final ITeachersDAO teachersDAO = new TeacherDAO(sqlSessionFactory);
 
-    public TeacherServiceImpl(ITeachersDAO teachersDAO, ILessonsDAO lessonsDAO) {
-        this.teachersDAO = teachersDAO;
-        this.lessonsDAO = lessonsDAO;
-    }
+    public TeacherServiceImpl() {}
 
     @Override
     public Teacher getTeacherById(int id) {

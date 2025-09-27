@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class ClassroomServiceImpl implements IClassroomService {
     private static final Logger logger = LogManager.getLogger(ClassroomServiceImpl.class);
     private final static SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
-    private final IClassroomsDAO classroomsDAO = new ClassroomsDAO(sqlSessionFactory);
-    private final ILessonsDAO lessonsDAO = new LessonDAO(sqlSessionFactory);
-    private final ISpecialClassroomsDAO specialClassroomsDAO = new SpecialClassroomDAO(sqlSessionFactory);
+    private static final IClassroomsDAO classroomsDAO = new ClassroomsDAO(sqlSessionFactory);
+    private static final ILessonsDAO lessonsDAO = new LessonDAO(sqlSessionFactory);
+    private static final ISpecialClassroomsDAO specialClassroomsDAO = new SpecialClassroomDAO(sqlSessionFactory);
 
     public ClassroomServiceImpl() {
     }

@@ -44,11 +44,11 @@ public class Main {
         SpecialClassroomDAO specialClassroomDAO = new SpecialClassroomDAO(sqlSessionFactory);
 
         // Service Initialization
-        ILessonService lessonService = new LessonServiceImpl(lessonDAO);
-        ITeacherService teacherService = new TeacherServiceImpl(teacherDAO, lessonDAO);
+        ILessonService lessonService = new LessonServiceImpl();
+        ITeacherService teacherService = new TeacherServiceImpl();
         ISubjectService subjectService = new SubjectServiceImpl();
         IClassroomService classroomService = new ClassroomServiceImpl();
-        IClassService classService = new ClassServiceImpl(classDAO);
+        IClassService classService = new ClassServiceImpl();
 
         IValidationService validationService = new ValidationServiceImpl();
 

@@ -50,7 +50,7 @@ public class ValidationServiceImpl implements IValidationService {
         teacherService = new TeacherServiceImpl(teachersDAO, lessonsDAO);
         subjectService = new SubjectServiceImpl();
         classroomService = new ClassroomServiceImpl();
-        classService = new ClassServiceImpl(classDAO);
+        classService = new ClassServiceImpl();
     }
 
     public ValidationServiceImpl() {
