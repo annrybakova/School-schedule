@@ -443,6 +443,59 @@ public class ValidationServiceImpl implements IValidationService {
     }
 
     @Override
+    public boolean validateClassSubjectRules(List<Lesson> lessons) {
+        boolean valid = true;
+        for (Lesson lesson : lessons) {
+            int classId = lesson.getClassId();
+            int subjectId = lesson.getSubjectId();
+
+            // 10b (id=2) and 10d (id=4) should not have Mathematics (id=1)
+            if ((classId == 2 || classId == 4) && subjectId == 1) {
+                validationErrors.add("Class " + getClassName(classId) + " should not have Mathematics");
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    @Override
+    public boolean validateSpecialRoomConstraints(List<Lesson> lessons) {
+        boolean valid = true;
+        Map<Integer, Map<Integer, Set<Integer>>> subjectRoomsPerDay = new HashMap<>();
+
+        for (Lesson lesson : lessons) {
+            int subjectId = lesson.getSubjectId();
+            int dayOfWeek = lesson.getDayOfWeek();
+            int classroomId = lesson.getClassroomId();
+
+            // Check only physics (id=2) and chemistry (id=3)
+            if (subjectId == 2 || subjectId == 3) {
+                subjectRoomsPerDay
+                        .computeIfAbsent(subjectId, k -> new HashMap<>())
+                        .computeIfAbsent(dayOfWeek, k -> new HashSet<>())
+                        .add(classroomId);
+            }
+        }
+
+        // Checking no more than 1 office per day for special items
+        for (Map.Entry<Integer, Map<Integer, Set<Integer>>> subjectEntry : subjectRoomsPerDay.entrySet()) {
+            int subjectId = subjectEntry.getKey();
+            String subjectName = subjectService.getSubjectById(subjectId).getName();
+
+            for (Map.Entry<Integer, Set<Integer>> dayEntry : subjectEntry.getValue().entrySet()) {
+                int day = dayEntry.getKey();
+                int roomCount = dayEntry.getValue().size();
+                if (roomCount > 1) {
+                    validationErrors.add(subjectName + " should use only 1 classroom per day, but uses " + roomCount + " on day " + day);
+                    valid = false;
+                }
+            }
+        }
+
+        return valid;
+    }
+
+    @Override
     public List<String> getValidationErrors() {
         return new ArrayList<>(validationErrors);
     }

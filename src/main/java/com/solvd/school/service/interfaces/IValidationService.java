@@ -8,6 +8,11 @@ import java.util.List;
 public interface IValidationService {
     boolean validateSchedule(List<Lesson> lessons);
     int fitness(SchoolClassesSchedule schedule);
+
+    boolean validateClassSubjectRules(List<Lesson> lessons);
+
+    boolean validateSpecialRoomConstraints(List<Lesson> lessons);
+
     List<String> getValidationErrors();
 
     boolean validateNoGaps(List<Lesson> lessons);
