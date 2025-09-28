@@ -1,11 +1,13 @@
 package com.solvd.school.service.interfaces;
 
 import com.solvd.school.model.Lesson;
+import com.solvd.school.model.schedule.SchoolClassesSchedule;
+
 import java.util.List;
 
 public interface IValidationService {
     boolean validateSchedule(List<Lesson> lessons);
-    double calculateFitness(List<Lesson> lessons); // НОВИЙ МЕТОД
+    int fitness(SchoolClassesSchedule schedule);
     List<String> getValidationErrors();
 
     boolean validateNoGaps(List<Lesson> lessons);
