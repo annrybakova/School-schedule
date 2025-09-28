@@ -84,4 +84,19 @@
         ORDER BY lesson_number
     </select>
 
+    <select id="getByTeacherAndTime" resultType="com.solvd.school.model.Lesson">
+    SELECT * FROM lessons
+    WHERE teacher_id = #{teacherId}
+      AND day_number = #{dayNumber}
+      AND lesson_number = #{lessonNumber}
+    </select>
+
+    <select id="getByClassroomAndTime" resultType="com.solvd.school.model.Lesson">
+        SELECT * FROM lessons
+        WHERE classroom_id = #{classroomId}
+        AND day_number = #{dayNumber}
+        AND lesson_number = #{lessonNumber}
+    </select>
+
+
 </mapper>

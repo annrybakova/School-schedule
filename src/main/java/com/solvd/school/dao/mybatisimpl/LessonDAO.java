@@ -103,4 +103,29 @@ public class LessonDAO implements ILessonsDAO {
             return s.selectList(NS + ".getByTeacherAndDay", p);
         }
     }
+
+    @Override
+    public Lesson getByTeacherAndTime(int teacherId, int dayNumber, int lessonNumber) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("teacherId", teacherId);
+        p.put("dayNumber", dayNumber);
+        p.put("lessonNumber", lessonNumber);
+
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getByTeacherAndTime", p);
+        }
+    }
+
+    @Override
+    public Lesson getByClassroomAndTime(int classroomId, int dayNumber, int lessonNumber) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("classroomId", classroomId);
+        p.put("dayNumber", dayNumber);
+        p.put("lessonNumber", lessonNumber);
+
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getByClassroomAndTime", p);
+        }
+    }
+
 }

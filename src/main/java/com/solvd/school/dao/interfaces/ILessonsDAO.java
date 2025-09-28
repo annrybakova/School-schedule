@@ -21,4 +21,8 @@ public interface ILessonsDAO extends IGenericDAO<Lesson> {
 
     List<Lesson> getByTeacherAndDay(int teacherId, int dayOfWeek);
 
+    Lesson getByTeacherAndTime(int teacherId, int dayNumber, int lessonNumber);
+
+    Lesson getByClassroomAndTime(int classroomId, int dayNumber, int lessonNumber);
+
 }
