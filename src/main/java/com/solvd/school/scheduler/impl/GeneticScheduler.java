@@ -10,6 +10,8 @@ import com.solvd.school.model.schedule.DailySchedule;
 import com.solvd.school.model.schedule.SchoolClassesSchedule;
 import com.solvd.school.model.schedule.WeeklySchedule;
 import com.solvd.school.scheduler.interfaces.IScheduler;
+import com.solvd.school.service.impl.ValidationServiceImpl;
+import com.solvd.school.service.interfaces.IValidationService;
 import com.solvd.school.util.GeneticAlgorithmConstants;
 
 import java.util.ArrayList;
@@ -17,14 +19,21 @@ import java.util.Comparator;
 import java.util.List;
 
 public class GeneticScheduler implements IScheduler {
+
+    private final IValidationService validationService;
+
+    public GeneticScheduler() {
+        this.validationService = new ValidationServiceImpl();
+    }
+
     @Override
     public SchoolClassesSchedule generateScheduleFor(List<SchoolClass> allClasses) {
         List<SchoolClassesSchedule> population = initPopulation(allClasses);
 
         for (int i = 0; i < GeneticAlgorithmConstants.GENERATIONS_NUMBER; ++i) {
-            population.sort(Comparator.comparingInt(this::fitness).reversed());
+            population.sort(Comparator.comparingInt(validationService::fitness).reversed());
 
-            if (fitness(population.get(0)) == GeneticAlgorithmConstants.PERFECT_MATCHING_SCHEDULE_SCORE) {
+            if (validationService.fitness(population.get(0)) == GeneticAlgorithmConstants.PERFECT_MATCHING_SCHEDULE_SCORE) {
                 return population.get(0);
             }
 
@@ -54,12 +63,6 @@ public class GeneticScheduler implements IScheduler {
         return population;
     }
 
-    private int fitness(SchoolClassesSchedule schedule) {
-        int score = GeneticAlgorithmConstants.PERFECT_MATCHING_SCHEDULE_SCORE;
-
-        return score;
-    }
-
     private SchoolClassesSchedule select(List<SchoolClassesSchedule> population) {
         List<SchoolClassesSchedule> tournament = new ArrayList<>();
 
@@ -69,7 +72,7 @@ public class GeneticScheduler implements IScheduler {
         }
 
         return tournament.stream()
-                .max(Comparator.comparingInt(this::fitness))
+                .max(Comparator.comparingInt(validationService::fitness))
                 .orElse(population.get(0));
     }
 
