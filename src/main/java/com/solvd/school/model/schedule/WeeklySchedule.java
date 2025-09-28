@@ -13,4 +13,14 @@ public class WeeklySchedule {
     public List<DailySchedule> getWeeklySchedule() {
         return weeklySchedule;
     }
+
+    public WeeklySchedule copy() {
+        WeeklySchedule copy = new WeeklySchedule();
+
+        for (DailySchedule dailySchedule : weeklySchedule) {
+            copy.addDailySchedule(dailySchedule.copy());
+        }
+
+        return copy;
+    }
 }

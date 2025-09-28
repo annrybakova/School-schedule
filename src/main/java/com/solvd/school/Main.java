@@ -52,11 +52,7 @@ public class Main {
 
         IValidationService validationService = new ValidationServiceImpl();
 
-         List<SchoolClass> allClasses = getAllClasses(classService);
-
-        // for (SchoolClass schoolClass : allClasses) {
-        // System.out.println(schoolClass);
-        // }
+        List<SchoolClass> allClasses = getAllClasses(classService);
 
         List<WeeklySchedule> weeklySchedules = getWeeklySchedulesFor(allClasses);
 

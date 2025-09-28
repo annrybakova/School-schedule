@@ -47,7 +47,7 @@ public class ValidationServiceImpl implements IValidationService {
         IClassSubjectDAO classSubjectDAO = new ClassSubjectDAO(sqlSessionFactory);
         lessonsDAO = new LessonDAO(sqlSessionFactory);
 
-        teacherService = new TeacherServiceImpl(teachersDAO, lessonsDAO);
+        teacherService = new TeacherServiceImpl();
         subjectService = new SubjectServiceImpl();
         classroomService = new ClassroomServiceImpl();
         classService = new ClassServiceImpl();

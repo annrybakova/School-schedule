@@ -15,4 +15,21 @@ public class DailySchedule {
     public List<Lesson> getDailySchedule() {
         return dailySchedule;
     }
+
+    public DailySchedule copy() {
+        DailySchedule copy = new DailySchedule();
+
+        for (Lesson lesson : dailySchedule) {
+            copy.addLesson(new Lesson(
+                    lesson.getClassId(),
+                    lesson.getSubjectId(),
+                    lesson.getTeacherId(),
+                    lesson.getClassroomId(),
+                    lesson.getDayOfWeek(),
+                    lesson.getLessonNumber()
+            ));
+        }
+
+        return copy;
+    }
 }
