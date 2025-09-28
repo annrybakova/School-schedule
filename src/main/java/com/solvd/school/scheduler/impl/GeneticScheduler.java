@@ -1,8 +1,12 @@
 package com.solvd.school.scheduler.impl;
 
+import com.solvd.school.generator.impl.RandomLessonGenerator;
 import com.solvd.school.generator.impl.RandomSchoolClassesScheduleGenerator;
+import com.solvd.school.generator.interfaces.ILessonGenerator;
 import com.solvd.school.generator.interfaces.ISchoolClassesScheduleGenerator;
+import com.solvd.school.model.Lesson;
 import com.solvd.school.model.SchoolClass;
+import com.solvd.school.model.schedule.DailySchedule;
 import com.solvd.school.model.schedule.SchoolClassesSchedule;
 import com.solvd.school.model.schedule.WeeklySchedule;
 import com.solvd.school.scheduler.interfaces.IScheduler;
@@ -38,7 +42,7 @@ public class GeneticScheduler implements IScheduler {
         return population.get(0);
     }
 
-    private List<SchoolClassesSchedule> initPopulation(List<SchoolClass> allClasses) {
+    private static List<SchoolClassesSchedule> initPopulation(List<SchoolClass> allClasses) {
         List<SchoolClassesSchedule> population = new ArrayList<>();
 
         ISchoolClassesScheduleGenerator scheduleGenerator = new RandomSchoolClassesScheduleGenerator();
@@ -69,7 +73,7 @@ public class GeneticScheduler implements IScheduler {
                 .orElse(population.get(0));
     }
 
-    private SchoolClassesSchedule crossover(SchoolClassesSchedule parent1, SchoolClassesSchedule parent2) {
+    private static SchoolClassesSchedule crossover(SchoolClassesSchedule parent1, SchoolClassesSchedule parent2) {
         SchoolClassesSchedule child = new SchoolClassesSchedule();
 
         List<WeeklySchedule> parent1Schedules = parent1.getAllSchoolClassesSchedule();
@@ -78,17 +82,41 @@ public class GeneticScheduler implements IScheduler {
         int size = parent1Schedules.size();
         int crossoverPoint = (int) (Math.random() * size);
 
-        for(int i = 0; i < crossoverPoint; ++i) {
+        for (int i = 0; i < crossoverPoint; ++i) {
             child.addWeeklySchedule(parent1Schedules.get(i).copy());
         }
 
-        for(int i = crossoverPoint; i < size; ++i) {
+        for (int i = crossoverPoint; i < size; ++i) {
             child.addWeeklySchedule(parent2Schedules.get(i).copy());
         }
 
         return child;
     }
 
-    private void mutate(SchoolClassesSchedule child) {
+    private static void mutate(SchoolClassesSchedule child) {
+        if (Math.random() > GeneticAlgorithmConstants.MUTATION_RATE) {
+            return;
+        }
+
+        List<WeeklySchedule> allWeeks = child.getAllSchoolClassesSchedule();
+        int classIndex = (int) (Math.random() * allWeeks.size());
+        WeeklySchedule week = allWeeks.get(classIndex);
+
+        List<DailySchedule> allDays = week.getWeeklySchedule();
+        int dayIndex = (int) (Math.random() * allDays.size());
+        DailySchedule day = allDays.get(dayIndex);
+
+        List<Lesson> lessons = day.getDailySchedule();
+        int lessonIndex = (int) (Math.random() * lessons.size());
+        Lesson oldLesson = lessons.get(lessonIndex);
+
+        ILessonGenerator generator = new RandomLessonGenerator();
+        Lesson newLesson = generator.getLessonFor(
+                oldLesson.getClassId(),
+                oldLesson.getLessonNumber(),
+                oldLesson.getDayOfWeek()
+        );
+
+        lessons.set(lessonIndex, newLesson);
     }
 }
