@@ -273,7 +273,9 @@ public class ValidationServiceImpl implements IValidationService {
         boolean valid = validateNoGaps(lessons) &&
                 validateTeacherConstraints(lessons) &&
                 validateClassroomConstraints(lessons) &&
-                validateSubjectConstraints(lessons);
+                validateSubjectConstraints(lessons) &&
+                validateClassSubjectRules(lessons) &&
+                validateSpecialRoomConstraints(lessons);
 
         if (!valid) {
             logger.warn("Schedule validation failed with errors: {}", validationErrors);

@@ -88,10 +88,7 @@ CREATE TABLE lessons (
     FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE,
     FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE,
     FOREIGN KEY (classroom_id) REFERENCES classrooms(id) ON DELETE CASCADE,
-    UNIQUE KEY unique_class_time (class_id, day_of_week, lesson_number),
-    UNIQUE KEY unique_teacher_time (teacher_id, day_of_week, lesson_number),
-    UNIQUE KEY unique_classroom_time (classroom_id, day_of_week, lesson_number),
-    UNIQUE KEY unique_group_time (day_of_week, lesson_number)
+    UNIQUE KEY unique_class_time (class_id, day_of_week, lesson_number)
 );
 
 -- 10. Teacher availability

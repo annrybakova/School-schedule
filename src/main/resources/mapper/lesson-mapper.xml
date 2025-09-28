@@ -59,9 +59,8 @@
 
     <insert id="insert" parameterType="com.solvd.school.model.Lesson" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
-        INSERT INTO lessons (class_id, subject_id, teacher_id, classroom_id, group_id, day_of_week, lesson_number)
-        VALUES (#{classId}, #{subjectId}, #{teacherId}, #{classroomId},
-        #{groupId, jdbcType=INTEGER}, #{dayOfWeek}, #{lessonNumber})
+        INSERT INTO lessons (class_id, subject_id, teacher_id, classroom_id, day_of_week, lesson_number)
+        VALUES (#{classId}, #{subjectId}, #{teacherId}, #{classroomId}, #{dayOfWeek}, #{lessonNumber})
     </insert>
 
     <update id="update" parameterType="com.solvd.school.model.Lesson">
@@ -70,7 +69,6 @@
         subject_id = #{subjectId},
         teacher_id = #{teacherId},
         classroom_id = #{classroomId},
-        group_id = #{groupId, jdbcType=INTEGER},
         day_of_week = #{dayOfWeek},
         lesson_number = #{lessonNumber}
         WHERE id = #{id}
