@@ -3,6 +3,7 @@ package com.solvd.school.service.impl;
 import com.solvd.school.dao.interfaces.ILessonsDAO;
 import com.solvd.school.dao.mybatisimpl.LessonDAO;
 import com.solvd.school.model.Lesson;
+import com.solvd.school.model.SchoolClass;
 import com.solvd.school.model.Teacher;
 import com.solvd.school.model.schedule.DailySchedule;
 import com.solvd.school.model.schedule.SchoolClassesSchedule;
@@ -65,10 +66,13 @@ public class ValidationServiceImpl implements IValidationService {
         // 5. Penalty for exceeding the teacher's workload: -25 points
         score -= calculateTeacherOverloadPenalty(allLessons);
 
-        // 6. Penalty for violation of "10b and 10d without math": -50 points
+        // 6. Сritical penalty for severe overload
+        score -= calculateCriticalOverloadPenalty(allLessons);
+
+        // 7. Penalty for violation of "10b and 10d without math": -50 points
         score -= calculateMathForbiddenClassesPenalty(allLessons);
 
-        // 7. Penalty for gaps in class schedules: -10 points for each gap
+        // 8. Penalty for gaps in class schedules: -10 points for each gap
         score -= calculateClassGapsPenalty(allLessons);
 
         // We guarantee that fitness will not be negative
@@ -212,7 +216,37 @@ public class ValidationServiceImpl implements IValidationService {
         return penalty;
     }
 
-    // 6. Violation of "10b and 10d without mathematics": -50 points
+    // 6. Сritical penalty for severe overload
+    private int calculateCriticalOverloadPenalty(List<Lesson> lessons) {
+        int penalty = 0;
+        Map<Integer, Map<Integer, Integer>> teacherDailyLoad = new HashMap<>();
+
+        // Рахуємо навантаження
+        for (Lesson lesson : lessons) {
+            teacherDailyLoad
+                    .computeIfAbsent(lesson.getTeacherId(), k -> new HashMap<>())
+                    .merge(lesson.getDayOfWeek(), 1, Integer::sum);
+        }
+
+        // Перевіряємо критичне перевантаження (>2 уроки над лімітом)
+        for (Map.Entry<Integer, Map<Integer, Integer>> teacherEntry : teacherDailyLoad.entrySet()) {
+            int teacherId = teacherEntry.getKey();
+            Teacher teacher = teacherService.getTeacherById(teacherId);
+
+            for (Map.Entry<Integer, Integer> dayEntry : teacherEntry.getValue().entrySet()) {
+                int load = dayEntry.getValue();
+                int maxLessons = teacher.getMaxLessonsPerDay();
+
+                if (load > maxLessons + 2) { // Критичне перевантаження
+                    penalty += GeneticAlgorithmConstants.CRITICAL_TEACHER_OVERLOAD_PENALTY;
+                }
+            }
+        }
+
+        return penalty;
+    }
+
+    // 7. Violation of "10b and 10d without mathematics": -50 points
     private int calculateMathForbiddenClassesPenalty(List<Lesson> lessons) {
         int penalty = 0;
 
@@ -231,7 +265,7 @@ public class ValidationServiceImpl implements IValidationService {
         return penalty;
     }
 
-    // 7. Windows in class schedules: -10 points for each window
+    // 8. Windows in class schedules: -10 points for each window
     private int calculateClassGapsPenalty(List<Lesson> lessons) {
         int penalty = 0;
         Map<Integer, Map<Integer, List<Integer>>> classLessonsByDay = new HashMap<>();
@@ -387,10 +421,16 @@ public class ValidationServiceImpl implements IValidationService {
             }
 
             // Rule 2: capacity check
-            int studentCount = classService.getClassById(classId).getStudentCount();
-            if (!classroomService.hasEnoughCapacity(classroomId, studentCount)) {
-                validationErrors.add("Classroom " + classroomId + " capacity exceeded for class " + classId);
+            SchoolClass schoolClass = classService.getClassById(classId);
+            if (schoolClass == null) {
+                validationErrors.add("Class with id " + classId + " not found in database");
                 valid = false;
+            } else {
+                int studentCount = schoolClass.getStudentCount();
+                if (!classroomService.hasEnoughCapacity(classroomId, studentCount)) {
+                    validationErrors.add("Classroom " + classroomId + " capacity exceeded for class " + classId);
+                    valid = false;
+                }
             }
 
             // Rule 3: special room requirement
