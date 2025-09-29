@@ -82,15 +82,32 @@ public class GeneticScheduler implements IScheduler {
         List<WeeklySchedule> parent1Schedules = parent1.getAllSchoolClassesSchedule();
         List<WeeklySchedule> parent2Schedules = parent2.getAllSchoolClassesSchedule();
 
-        int size = parent1Schedules.size();
-        int crossoverPoint = (int) (Math.random() * size);
+        for (int i = 0; i < parent1Schedules.size(); i++) {
+            WeeklySchedule childWeek = new WeeklySchedule();
 
-        for (int i = 0; i < crossoverPoint; ++i) {
-            child.addWeeklySchedule(parent1Schedules.get(i).copy());
-        }
+            List<DailySchedule> parent1Days = parent1Schedules.get(i).getWeeklySchedule();
+            List<DailySchedule> parent2Days = parent2Schedules.get(i).getWeeklySchedule();
 
-        for (int i = crossoverPoint; i < size; ++i) {
-            child.addWeeklySchedule(parent2Schedules.get(i).copy());
+            for (int d = 0; d < parent1Days.size(); ++d) {
+                DailySchedule childDay = new DailySchedule();
+
+                List<Lesson> parent1Lessons = parent1Days.get(d).getDailySchedule();
+                List<Lesson> parent2Lessons = parent2Days.get(d).getDailySchedule();
+
+                int crossoverPoint = (int) (Math.random() * parent1Lessons.size());
+
+                for (int l = 0; l < crossoverPoint; ++l) {
+                    childDay.addLesson(parent1Lessons.get(l));
+                }
+
+                for (int l = crossoverPoint; l < parent1Lessons.size(); ++l) {
+                    childDay.addLesson(parent2Lessons.get(l));
+                }
+
+                childWeek.addDailySchedule(childDay);
+            }
+
+            child.addWeeklySchedule(childWeek);
         }
 
         return child;
