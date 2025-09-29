@@ -47,10 +47,11 @@ public class ClassroomServiceImpl implements IClassroomService {
 
     @Override
     public boolean isClassroomAvailable(int classroomId, int dayOfWeek, int lessonNumber) {
-        // List<Lesson> classroomLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); // Need proper implementation
+        // List<Lesson> classroomLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); //
+        // Need proper implementation
         // return classroomLessons.stream()
-        //         .noneMatch(lesson -> lesson.getClassroomId() == classroomId &&
-        //                 lesson.getLessonNumber() == lessonNumber);
+        // .noneMatch(lesson -> lesson.getClassroomId() == classroomId &&
+        // lesson.getLessonNumber() == lessonNumber);
         List<Lesson> lessonsInRoom = lessonsDAO.getByClassroomAndDay(classroomId, dayOfWeek);
         return lessonsInRoom.stream()
                 .noneMatch(lesson -> lesson.getLessonNumber() == lessonNumber);
@@ -116,5 +117,19 @@ public class ClassroomServiceImpl implements IClassroomService {
                     classroomId, studentCount, classroom.getCapacity());
         }
         return ok;
+    }
+
+    @Override
+    public List<Classroom> getAllSpecialClassrooms() {
+        return classroomsDAO.getAll().stream()
+                .filter(Classroom::isSpecial)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Classroom> getAllCommonClassrooms() {
+        return classroomsDAO.getAll().stream()
+                .filter(c -> !c.isSpecial())
+                .collect(Collectors.toList());
     }
 }

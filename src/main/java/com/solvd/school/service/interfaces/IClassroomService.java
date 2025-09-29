@@ -19,4 +19,9 @@ public interface IClassroomService {
     boolean isSubjectRoomConstraintViolated(int subjectId, int dayOfWeek);
 
     boolean hasEnoughCapacity(int classroomId, int studentCount);
+
+    List<Classroom> getAllCommonClassrooms();
+
+    List<Classroom> getAllSpecialClassrooms();
+
 }
