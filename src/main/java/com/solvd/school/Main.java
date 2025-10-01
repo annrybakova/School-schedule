@@ -35,22 +35,9 @@ public class Main {
     private static final int MAX_GENERATION_TIME_SECONDS = 300;
 
     public static void main(String[] args) {
-        SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
-
-        // DAO Initialization
-        LessonDAO lessonDAO = new LessonDAO(sqlSessionFactory);
-        TeacherDAO teacherDAO = new TeacherDAO(sqlSessionFactory);
-        SubjectDAO subjectDAO = new SubjectDAO(sqlSessionFactory);
-        ClassSubjectDAO classSubjectDAO = new ClassSubjectDAO(sqlSessionFactory);
-        ClassroomsDAO classroomDAO = new ClassroomsDAO(sqlSessionFactory);
-        ClassDAO classDAO = new ClassDAO(sqlSessionFactory);
-        SpecialClassroomDAO specialClassroomDAO = new SpecialClassroomDAO(sqlSessionFactory);
 
         // Service Initialization
         ILessonService lessonService = new LessonServiceImpl();
-        ITeacherService teacherService = new TeacherServiceImpl();
-        ISubjectService subjectService = new SubjectServiceImpl();
-        IClassroomService classroomService = new ClassroomServiceImpl();
         IClassService classService = new ClassServiceImpl();
         IValidationService validationService = new ValidationServiceImpl();
 

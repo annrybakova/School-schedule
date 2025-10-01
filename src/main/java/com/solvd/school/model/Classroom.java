@@ -18,14 +18,9 @@ public class Classroom {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getRoomNumber() { return roomNumber; }
-    public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
-
     public boolean isSpecial() { return isSpecial; }
-    public void setSpecial(boolean special) { isSpecial = special; }
 
     public int getCapacity() { return capacity; }
-    public void setCapacity(int capacity) { this.capacity = capacity; }
 
     @Override
     public String toString() {

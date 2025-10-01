@@ -27,18 +27,6 @@ public class SubjectConstraint {
     public int getSubjectId() { return subjectId; }
     public void setSubjectId(int subjectId) { this.subjectId = subjectId; }
 
-    public boolean isNotFirstLesson() { return notFirstLesson; }
-    public void setNotFirstLesson(boolean notFirstLesson) { this.notFirstLesson = notFirstLesson; }
-
-    public boolean isNotLastLesson() { return notLastLesson; }
-    public void setNotLastLesson(boolean notLastLesson) { this.notLastLesson = notLastLesson; }
-
-    public Integer getPreferredLesson() { return preferredLesson; }
-    public void setPreferredLesson(Integer preferredLesson) { this.preferredLesson = preferredLesson; }
-
-    public int getMaxLessonsPerDay() { return maxLessonsPerDay; }
-    public void setMaxLessonsPerDay(int maxLessonsPerDay) { this.maxLessonsPerDay = maxLessonsPerDay; }
-
     public Subject getSubject() { return subject; }
     public void setSubject(Subject subject) { this.subject = subject; }
 

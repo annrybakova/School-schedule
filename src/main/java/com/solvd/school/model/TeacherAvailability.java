@@ -25,9 +25,6 @@ public class TeacherAvailability {
     public int getDayOfWeek() { return dayOfWeek; }
     public void setDayOfWeek(int dayOfWeek) { this.dayOfWeek = dayOfWeek; }
 
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean available) { isAvailable = available; }
-
     public Teacher getTeacher() { return teacher; }
     public void setTeacher(Teacher teacher) { this.teacher = teacher; }
 

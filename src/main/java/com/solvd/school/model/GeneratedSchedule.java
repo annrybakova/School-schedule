@@ -18,15 +18,6 @@ public class GeneratedSchedule {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getGenerationId() { return generationId; }
-    public void setGenerationId(int generationId) { this.generationId = generationId; }
-
-    public int getLessonId() { return lessonId; }
-    public void setLessonId(int lessonId) { this.lessonId = lessonId; }
-
-    public ScheduleGenerationLog getGenerationLog() { return generationLog; }
-    public void setGenerationLog(ScheduleGenerationLog generationLog) { this.generationLog = generationLog; }
-
     public Lesson getLesson() { return lesson; }
     public void setLesson(Lesson lesson) { this.lesson = lesson; }
 

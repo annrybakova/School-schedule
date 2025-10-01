@@ -28,27 +28,6 @@ public class ScheduleGenerationLog {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public Date getGenerationDate() { return generationDate; }
-    public void setGenerationDate(Date generationDate) { this.generationDate = generationDate; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public int getGenerationsExecuted() { return generationsExecuted; }
-    public void setGenerationsExecuted(int generationsExecuted) { this.generationsExecuted = generationsExecuted; }
-
-    public float getBestFitnessScore() { return bestFitnessScore; }
-    public void setBestFitnessScore(float bestFitnessScore) { this.bestFitnessScore = bestFitnessScore; }
-
-    public Integer getAlgorithmParamsId() { return algorithmParamsId; }
-    public void setAlgorithmParamsId(Integer algorithmParamsId) { this.algorithmParamsId = algorithmParamsId; }
-
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-
-    public GeneticAlgorithmParams getAlgorithmParams() { return algorithmParams; }
-    public void setAlgorithmParams(GeneticAlgorithmParams algorithmParams) { this.algorithmParams = algorithmParams; }
-
     @Override
     public String toString() {
         return "ScheduleGenerationLog{id=" + id + ", generationDate=" + generationDate +

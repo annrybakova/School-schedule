@@ -20,14 +20,12 @@ public class ScheduleServiceImpl implements IScheduleService {
     private final static SqlSessionFactory sqlSessionFactory = MyBatisUtil.getSqlSessionFactory();
     private static final ILessonsDAO lessonsDAO = new LessonDAO(sqlSessionFactory);
     private static final IScheduleGenerationLogDAO logDAO = new ScheduleGenerationLogDAO(sqlSessionFactory);
-    // private final BasicScheduleGenerator generator;
 
     public ScheduleServiceImpl() {}
 
     @Override
     public void generateSchedule() {
         logger.info("Starting schedule generation...");
-        // generator.generateBasicSchedule();
         logger.info("Schedule generation completed");
     }
 

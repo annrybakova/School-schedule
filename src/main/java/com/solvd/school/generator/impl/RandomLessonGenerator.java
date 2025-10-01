@@ -1,8 +1,6 @@
 package com.solvd.school.generator.impl;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.solvd.school.dao.interfaces.IClassSubjectDAO;
@@ -20,7 +18,6 @@ import com.solvd.school.service.interfaces.ITeacherService;
 import com.solvd.school.util.MyBatisUtil;
 
 public class RandomLessonGenerator implements ILessonGenerator {
-    private static final Random random = new Random();
     private static final int MAX_ATTEMPTS = 10;
 
     @Override
@@ -87,19 +84,5 @@ public class RandomLessonGenerator implements ILessonGenerator {
 
         // if all are occupied return the 1st
         return commonClassrooms.get(0);
-    }
-
-    private int getRandomClassroomIdFor(int subjectId) {
-        IClassroomService classroomService = new ClassroomServiceImpl();
-        ISubjectService subjectService = new SubjectServiceImpl();
-
-        int randomClassroomId;
-        if (subjectService.requiresSpecialRoom(subjectId)) {
-            randomClassroomId = classroomService.getSpecialClassroomForSubject(subjectId).getId();
-        } else {
-            randomClassroomId = classroomService.getCommonClassroomForSubject(subjectId).getId();
-        }
-
-        return randomClassroomId;
     }
 }

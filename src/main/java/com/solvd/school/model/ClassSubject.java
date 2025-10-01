@@ -29,9 +29,6 @@ public class ClassSubject {
     public int getLessonsPerWeek() { return lessonsPerWeek; }
     public void setLessonsPerWeek(int lessonsPerWeek) { this.lessonsPerWeek = lessonsPerWeek; }
 
-    public SchoolClass getSchoolClass() { return schoolClass; }
-    public void setSchoolClass(SchoolClass schoolClass) { this.schoolClass = schoolClass; }
-
     public Subject getSubject() { return subject; }
     public void setSubject(Subject subject) { this.subject = subject; }
 

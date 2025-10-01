@@ -21,20 +21,8 @@ public class Student {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
-
     public int getClassId() { return classId; }
     public void setClassId(int classId) { this.classId = classId; }
-
-    public int getGroupId() { return groupId; }
-    public void setGroupId(int groupId) { this.groupId = groupId; }
-
-    public SchoolClass getSchoolClass() { return schoolClass; }
-    public void setSchoolClass(SchoolClass schoolClass) { this.schoolClass = schoolClass; }
 
     @Override
     public String toString() {

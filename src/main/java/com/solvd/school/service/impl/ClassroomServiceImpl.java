@@ -47,11 +47,6 @@ public class ClassroomServiceImpl implements IClassroomService {
 
     @Override
     public boolean isClassroomAvailable(int classroomId, int dayOfWeek, int lessonNumber) {
-        // List<Lesson> classroomLessons = lessonsDAO.getByClassAndDay(0, dayOfWeek); //
-        // Need proper implementation
-        // return classroomLessons.stream()
-        // .noneMatch(lesson -> lesson.getClassroomId() == classroomId &&
-        // lesson.getLessonNumber() == lessonNumber);
         List<Lesson> lessonsInRoom = lessonsDAO.getByClassroomAndDay(classroomId, dayOfWeek);
         return lessonsInRoom.stream()
                 .noneMatch(lesson -> lesson.getLessonNumber() == lessonNumber);
@@ -70,11 +65,6 @@ public class ClassroomServiceImpl implements IClassroomService {
 
     @Override
     public Classroom getSpecialClassroomForSubject(int subjectId) {
-        // Implementation for special classrooms (physics, chemistry labs)
-        // return getAllClassrooms().stream()
-        // .filter(Classroom::isSpecial)
-        // .findFirst()
-        // .orElse(null);
         Integer classroomId = specialClassroomsDAO.getClassroomIdBySubjectId(subjectId);
         if (classroomId == null) {
             logger.warn("No special classroom found for subjectId={}", subjectId);

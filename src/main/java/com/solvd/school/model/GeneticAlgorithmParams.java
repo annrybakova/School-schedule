@@ -27,27 +27,6 @@ public class GeneticAlgorithmParams {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getMaxGenerations() { return maxGenerations; }
-    public void setMaxGenerations(int maxGenerations) { this.maxGenerations = maxGenerations; }
-
-    public int getAllowedGaps() { return allowedGaps; }
-    public void setAllowedGaps(int allowedGaps) { this.allowedGaps = allowedGaps; }
-
-    public int getPopulationSize() { return populationSize; }
-    public void setPopulationSize(int populationSize) { this.populationSize = populationSize; }
-
-    public float getMutationRate() { return mutationRate; }
-    public void setMutationRate(float mutationRate) { this.mutationRate = mutationRate; }
-
-    public float getCrossoverRate() { return crossoverRate; }
-    public void setCrossoverRate(float crossoverRate) { this.crossoverRate = crossoverRate; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
-
     @Override
     public String toString() {
         return "GeneticAlgorithmParams{id=" + id + ", maxGenerations=" + maxGenerations +

@@ -46,9 +46,6 @@ public class Lesson {
     public int getLessonNumber() { return lessonNumber; }
     public void setLessonNumber(int lessonNumber) { this.lessonNumber = lessonNumber; }
 
-    public SchoolClass getSchoolClass() { return schoolClass; }
-    public void setSchoolClass(SchoolClass schoolClass) { this.schoolClass = schoolClass; }
-
     public Subject getSubject() { return subject; }
     public void setSubject(Subject subject) { this.subject = subject; }
 
