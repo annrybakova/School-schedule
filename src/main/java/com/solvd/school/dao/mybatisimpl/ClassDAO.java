@@ -20,22 +20,30 @@ public class ClassDAO implements IClassDAO {
 
     @Override
     public SchoolClass getById(int id) {
-        return null;
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getById", id);
+        }
     }
 
     @Override
     public void insert(SchoolClass entity) {
-
+        try (SqlSession s = sf.openSession(true)) {
+            s.insert(NS + ".insert", entity);
+        }
     }
 
     @Override
     public void update(SchoolClass entity) {
-
+        try (SqlSession s = sf.openSession(true)) {
+            s.update(NS + ".update", entity);
+        }
     }
 
     @Override
     public void delete(int id) {
-
+        try (SqlSession s = sf.openSession(true)) {
+            s.delete(NS + ".delete", id);
+        }
     }
 
     @Override
