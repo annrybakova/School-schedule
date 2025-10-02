@@ -46,6 +46,7 @@ public class GeneticScheduler implements IScheduler {
                 mutate(child);
                 newPopulation.add(child);
             }
+            population = newPopulation;
         }
 
         return population.get(0);

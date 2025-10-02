@@ -13,14 +13,4 @@ public class SchoolClassesSchedule {
     public List<WeeklySchedule> getAllSchoolClassesSchedule() {
         return allSchoolClassesSchedule;
     }
-
-    public SchoolClassesSchedule copy() {
-        SchoolClassesSchedule copy = new SchoolClassesSchedule();
-
-        for (WeeklySchedule week : allSchoolClassesSchedule) {
-            copy.addWeeklySchedule(week.copy());
-        }
-
-        return copy;
-    }
 }
