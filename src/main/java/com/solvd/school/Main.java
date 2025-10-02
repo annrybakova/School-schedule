@@ -1,6 +1,5 @@
 package com.solvd.school;
 
-import com.solvd.school.dao.mybatisimpl.*;
 import com.solvd.school.model.Lesson;
 import com.solvd.school.model.SchoolClass;
 import com.solvd.school.model.schedule.DailySchedule;
@@ -21,9 +20,6 @@ import com.solvd.school.service.interfaces.ISubjectService;
 import com.solvd.school.service.interfaces.ITeacherService;
 import com.solvd.school.service.interfaces.IValidationService;
 import com.solvd.school.util.GeneticAlgorithmConstants;
-import com.solvd.school.util.MyBatisUtil;
-
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,15 +30,18 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class.getName());
     private static final int MAX_GENERATION_TIME_SECONDS = 300;
 
-    public static void main(String[] args) {
+    private static final IClassService classService = new ClassServiceImpl();
+    private static final ITeacherService teacherService = new TeacherServiceImpl();
+    private static final ISubjectService subjectService = new SubjectServiceImpl();
+    private static final IClassroomService classroomService = new ClassroomServiceImpl();
+    private static final ILessonService lessonService = new LessonServiceImpl();
 
-        // Service Initialization
-        ILessonService lessonService = new LessonServiceImpl();
-        IClassService classService = new ClassServiceImpl();
+    public static void main(String[] args) {
         IValidationService validationService = new ValidationServiceImpl();
 
+
         // Get all classes
-        List<SchoolClass> allClasses = getAllClasses(classService);
+        List<SchoolClass> allClasses = getAllClasses();
 
         logger.info("Starting genetic algorithm with improved parameters...");
         logger.info("Population: {}, Generations: {}",
@@ -82,7 +81,7 @@ public class Main {
         logger.info("Final fitness score: {}/1000", fitnessScore);
 
         // Save lessons to database
-        saveLessonsToDatabase(optimalSchedule, lessonService);
+        saveLessonsToDatabase(optimalSchedule);
 
         // Display the generated schedule
         displaySchedule(optimalSchedule);
@@ -90,7 +89,7 @@ public class Main {
         logger.info("Schedule generation completed successfully!");
     }
 
-    private static List<SchoolClass> getAllClasses(IClassService classService) {
+    private static List<SchoolClass> getAllClasses() {
         return classService.getAllClasses();
     }
 
@@ -104,10 +103,8 @@ public class Main {
         return allLessons;
     }
 
-    private static void saveLessonsToDatabase(SchoolClassesSchedule schedule, ILessonService lessonService) {
+    private static void saveLessonsToDatabase(SchoolClassesSchedule schedule) {
         int lessonsCount = 0;
-
-        logger.info("Saving lessons to database...");
 
         for (WeeklySchedule weeklySchedule : schedule.getAllSchoolClassesSchedule()) {
             for (DailySchedule dailySchedule : weeklySchedule.getWeeklySchedule()) {
@@ -118,35 +115,72 @@ public class Main {
             }
         }
 
-        logger.info("Saved {} lessons to database", lessonsCount);
+        logger.info("Successfully saved {} lessons to database", lessonsCount);
     }
 
     private static void displaySchedule(SchoolClassesSchedule schedule) {
-        System.out.println("\n" + "=".repeat(80));
-        System.out.println("FINAL OPTIMAL SCHOOL SCHEDULE");
-        System.out.println("=".repeat(80));
+        logger.info("=".repeat(80));
+        logger.info("FINAL OPTIMAL SCHOOL SCHEDULE");
+        logger.info("=".repeat(80));
 
-        int classIndex = 1;
         for (WeeklySchedule weeklySchedule : schedule.getAllSchoolClassesSchedule()) {
-            System.out.println("\nSCHEDULE FOR CLASS " + classIndex + ":");
-            System.out.println("-".repeat(50));
+            // We get the first lesson for defining a class
+            int classId = getClassIdFromSchedule(weeklySchedule);
+            SchoolClass schoolClass = classService.getClassById(classId);
 
-            int dayIndex = 1;
-            for (DailySchedule dailySchedule : weeklySchedule.getWeeklySchedule()) {
-                System.out.println("\nDAY " + dayIndex + ":");
+            if (schoolClass != null) {
+                logger.info("SCHEDULE FOR {}:", schoolClass.getName().toUpperCase());
+                logger.info("-".repeat(50));
 
-                for (Lesson lesson : dailySchedule.getDailySchedule()) {
-                    System.out.printf("   Lesson %d: Class=%d, Subject=%d, Teacher=%d, Room=%d\n",
-                            lesson.getLessonNumber(),
-                            lesson.getClassId(),
-                            lesson.getSubjectId(),
-                            lesson.getTeacherId(),
-                            lesson.getClassroomId());
+                int dayIndex = 1;
+                for (DailySchedule dailySchedule : weeklySchedule.getWeeklySchedule()) {
+                    logger.info("DAY {}:", dayIndex);
+
+                    int lessonNum = 1;
+                    for (Lesson lesson : dailySchedule.getDailySchedule()) {
+                        // We get names instead of IDs
+                        String subjectName = subjectService.getSubjectById(lesson.getSubjectId()).getName();
+                        String teacherLastName = teacherService.getTeacherById(lesson.getTeacherId()).getLastName();
+                        String teacherFirstName = teacherService.getTeacherById(lesson.getTeacherId()).getFirstName();
+                        String roomNumber = classroomService.getClassroomById(lesson.getClassroomId()).getRoomNumber();
+
+                        logger.info("   Lesson {}. {} - {} ({} {}), Room: {}",
+                                lessonNum,
+                                getTimeByLessonNumber(lessonNum),
+                                subjectName,
+                                teacherLastName,
+                                teacherFirstName,
+                                roomNumber);
+                        lessonNum++;
+                    }
+                    dayIndex++;
                 }
-                dayIndex++;
+                logger.info("─".repeat(50));
+            } else {
+                logger.warn("Class with id {} not found!", classId);
             }
-            System.out.println("\n" + "─".repeat(50));
-            classIndex++;
         }
+    }
+
+    // Auxiliary method for getting lesson time
+    private static String getTimeByLessonNumber(int lessonNumber) {
+        return switch (lessonNumber) {
+            case 1 -> "8:30-9:15";
+            case 2 -> "9:25-10:10";
+            case 3 -> "10:25-11:10";
+            case 4 -> "11:25-12:10";
+            case 5 -> "12:25-13:10";
+            case 6 -> "13:20-14:05";
+            default -> "Unknown";
+        };
+    }
+
+    // Helper method for getting class ID from timetable
+    private static int getClassIdFromSchedule(WeeklySchedule weeklySchedule) {
+        if (!weeklySchedule.getWeeklySchedule().isEmpty() &&
+                !weeklySchedule.getWeeklySchedule().get(0).getDailySchedule().isEmpty()) {
+            return weeklySchedule.getWeeklySchedule().get(0).getDailySchedule().get(0).getClassId();
+        }
+        return 1; // fallback
     }
 }

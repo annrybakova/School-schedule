@@ -38,7 +38,6 @@ public class LessonServiceImpl implements ILessonService {
     @Override
     public void createLesson(Lesson lesson) {
         lessonsDAO.insert(lesson);
-        logger.info("Created lesson: {}", lesson);
     }
 
     @Override
