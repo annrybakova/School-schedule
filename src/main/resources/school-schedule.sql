@@ -135,11 +135,11 @@ CREATE TABLE generated_schedules (
 );
 
 -- Insert data
-INSERT INTO classes (name) VALUES
-('10a'),
-('10b'),
-('10c'),
-('10d');
+INSERT INTO classes (id, name) VALUES
+(1, '10a'),
+(2, '10b'),
+(3, '10c'),
+(4, '10d');
 
 -- 17 school subjects
 INSERT INTO subjects (name, requires_special_room) VALUES
