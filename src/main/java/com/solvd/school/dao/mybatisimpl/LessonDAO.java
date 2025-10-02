@@ -42,14 +42,6 @@ public class LessonDAO implements ILessonsDAO {
     }
 
     @Override
-    public void insert(Lesson lesson) {
-        try (SqlSession s = sf.openSession(true)) {
-            s.insert(NS + ".insert", lesson);
-            log.info("Inserted lesson: {}", lesson);
-        }
-    }
-
-    @Override
     public void update(Lesson lesson) {
         try (SqlSession s = sf.openSession(true)) {
             s.update(NS + ".update", lesson);
@@ -125,6 +117,13 @@ public class LessonDAO implements ILessonsDAO {
 
         try (SqlSession s = sf.openSession()) {
             return s.selectOne(NS + ".getByClassroomAndTime", p);
+        }
+    }
+
+    @Override
+    public void insert(Lesson lesson) {
+        try (SqlSession s = sf.openSession(true)) {
+            s.insert(NS + ".insert", lesson);
         }
     }
 

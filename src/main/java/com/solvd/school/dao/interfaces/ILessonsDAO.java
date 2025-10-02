@@ -4,8 +4,6 @@ import com.solvd.school.model.Lesson;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 public interface ILessonsDAO extends IGenericDAO<Lesson> {
     List<Lesson> getByClassAndDay(int classId, int dayOfWeek);
 
@@ -24,5 +22,7 @@ public interface ILessonsDAO extends IGenericDAO<Lesson> {
     Lesson getByTeacherAndTime(int teacherId, int dayNumber, int lessonNumber);
 
     Lesson getByClassroomAndTime(int classroomId, int dayNumber, int lessonNumber);
+
+    void insert(Lesson lesson);
 
 }

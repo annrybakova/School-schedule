@@ -10,4 +10,8 @@ public interface ITeachersDAO extends IGenericDAO<Teacher> {
     List<Teacher> getBySubject(int subjectId);
 
     Integer getTeacherForSubject(int subjectId);
+
+    Teacher getByFirstName(String firstName);
+
+    Teacher getByLastName(String lastName);
 }

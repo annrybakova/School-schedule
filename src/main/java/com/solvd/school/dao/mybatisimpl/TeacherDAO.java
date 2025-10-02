@@ -65,4 +65,18 @@ public class TeacherDAO implements ITeachersDAO {
             s.delete(NS + ".delete", id);
         }
     }
+
+    @Override
+    public Teacher getByFirstName(String firstName) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getByFirstName", firstName);
+        }
+    }
+
+    @Override
+    public Teacher getByLastName(String lastName) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getByLastName", lastName);
+        }
+    }
 }

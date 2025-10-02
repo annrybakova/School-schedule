@@ -8,5 +8,8 @@ public interface IClassroomsDAO extends IGenericDAO<Classroom> {
     List<Classroom> getAll();
 
     Integer getRandomClassroomId(int subjectId);
+
     Classroom getCommonClassroom(int subjectId);
+
+    Classroom getByRoomNumber(String roomNumber);
 }

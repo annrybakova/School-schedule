@@ -8,7 +8,8 @@ public class Teacher {
     private int maxLessonsPerDay;
     private Subject subject;
 
-    public Teacher() {}
+    public Teacher() {
+    }
 
     public Teacher(int id, String firstName, String lastName, int subjectId, int maxLessonsPerDay) {
         this.id = id;
@@ -18,19 +19,45 @@ public class Teacher {
         this.maxLessonsPerDay = maxLessonsPerDay;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getLastName() { return lastName; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getSubjectId() { return subjectId; }
-    public void setSubjectId(int subjectId) { this.subjectId = subjectId; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public int getMaxLessonsPerDay() { return maxLessonsPerDay; }
-    public void setMaxLessonsPerDay(int maxLessonsPerDay) { this.maxLessonsPerDay = maxLessonsPerDay; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public Subject getSubject() { return subject; }
-    public void setSubject(Subject subject) { this.subject = subject; }
+    public int getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public int getMaxLessonsPerDay() {
+        return maxLessonsPerDay;
+    }
+
+    public void setMaxLessonsPerDay(int maxLessonsPerDay) {
+        this.maxLessonsPerDay = maxLessonsPerDay;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 
     @Override
     public String toString() {

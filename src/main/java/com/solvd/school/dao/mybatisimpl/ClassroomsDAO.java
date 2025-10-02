@@ -65,4 +65,11 @@ public class ClassroomsDAO implements IClassroomsDAO {
             s.delete(NS + ".delete", id);
         }
     }
+
+    @Override
+    public Classroom getByRoomNumber(String roomNumber) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getByRoomNumber", roomNumber);
+        }
+    }
 }

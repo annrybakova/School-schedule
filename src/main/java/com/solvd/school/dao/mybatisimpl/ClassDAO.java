@@ -1,6 +1,7 @@
 package com.solvd.school.dao.mybatisimpl;
 
 import com.solvd.school.dao.interfaces.IClassDAO;
+import com.solvd.school.model.Classroom;
 import com.solvd.school.model.SchoolClass;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -50,6 +51,13 @@ public class ClassDAO implements IClassDAO {
     public List<SchoolClass> getAll() {
         try (SqlSession s = sf.openSession()) {
             return s.selectList(NS + ".getAll");
+        }
+    }
+
+    @Override
+    public Classroom getByName(String name) {
+        try (SqlSession s = sf.openSession()) {
+            return s.selectOne(NS + ".getByName", name);
         }
     }
 }

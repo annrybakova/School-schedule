@@ -33,4 +33,8 @@ public class SchoolClass {
         return "SchoolClass{id=" + id + ", name='" + name + "', students=" + students.size() + "}";
     }
 
+    public String getName() {
+        return name;
+    }
+
 }
